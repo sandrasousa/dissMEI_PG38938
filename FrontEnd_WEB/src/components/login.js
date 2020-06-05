@@ -5,6 +5,9 @@ import CheckButton from "react-validation/build/button";
 
 import AuthService from "../services/auth_service";
 
+import "../style/login.css";
+
+
 const required = value => {
   if (!value) {
     return (
@@ -83,11 +86,6 @@ export default class Login extends Component {
     return (
       <div className="col-md-12">
         <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
 
           <Form
             onSubmit={this.handleLogin}
@@ -121,7 +119,7 @@ export default class Login extends Component {
 
             <div className="form-group">
               <button
-                className="btn btn-primary btn-block"
+                className="btn btn-block"
                 disabled={this.state.loading}
               >
                 {this.state.loading && (

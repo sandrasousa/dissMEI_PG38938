@@ -29,8 +29,8 @@ exports.signup = (req, res) => {
           });
         });
       } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
+        // user role = 2
+        user.setRoles([2]).then(() => {
           res.send({ message: "User registered successfully!" });
         });
       }
@@ -76,6 +76,12 @@ exports.signin = (req, res) => {
           id: user.id,
           username: user.username,
           email: user.email,
+          nome: user.nome,
+          apelido: user.apelido,
+          dataNascimento: user.dataNascimento,
+          sexo: user.sexo,
+          morada: user.morada,
+          contacto: user.contacto,
           roles: authorities,
           accessToken: token
         });

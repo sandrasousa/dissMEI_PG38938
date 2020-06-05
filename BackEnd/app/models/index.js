@@ -26,7 +26,9 @@ db.sequelize = sequelize;
 
 db.user = require("./user")(sequelize, Sequelize);
 db.role = require("./role")(sequelize, Sequelize);
+db.turma = require("./turma")(sequelize, Sequelize);
 
+// ligação user aos roles
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",
@@ -38,6 +40,19 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId"
 });
 
+// ligação user às turmas
+db.user.belongsToMany(db.turma, {
+  through: "turma_users",
+  foreignKey: "userId",
+  otherKey: "turmaId"
+});
+db.turma.belongsToMany(db.user, {
+  through: "turma_users",
+  foreignKey: "turmaId",
+  otherKey: "userId"
+});
+
+//roles
 db.ROLES = ["admin", "educacao", "responsavel"];
 
 module.exports = db;

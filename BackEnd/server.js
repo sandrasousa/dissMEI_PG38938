@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // database
 const db = require("./app/models");
-const Role = db.role;
+/*PARA CRIAR OS ROLES -- correr duas vezes (node sever.js)*/
+//const Role = db.role;
 
 db.sequelize.sync();
 
@@ -28,6 +29,8 @@ app.get("/", (req, res) => {
 require('./app/routes/auth')(app);
 // utilizadores
 require('./app/routes/user')(app);
+// turmas
+require("./app/routes/turma")(app);
     
 /////////////SERVIDOR/////////////
 // localhost:4000

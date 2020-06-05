@@ -8,7 +8,7 @@ class UserService {
     return axios.get(API_URL + 'all');
   }
 
-  getResponsavelrBoard() {
+  getAdminBoard() {
     return axios.get(API_URL + 'admin', { headers: authHeader() });
   }
 
@@ -16,7 +16,7 @@ class UserService {
     return axios.get(API_URL + 'educacao', { headers: authHeader() });
   }
 
-  getAdminBoard() {
+  getResponsavelBoard() {
     return axios.get(API_URL + 'responsavel', { headers: authHeader() });
   }
 }

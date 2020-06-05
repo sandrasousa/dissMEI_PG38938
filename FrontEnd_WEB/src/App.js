@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import "./style/App.css";
 
 import AuthService from "./services/auth_service";
 
@@ -49,7 +49,7 @@ class App extends Component {
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
             <Link to={"/"} className="navbar-brand">
-              bezKoder
+              <i>Sandra Sousa | PG38938 </i>
             </Link>
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
@@ -61,7 +61,7 @@ class App extends Component {
               {showEducacaoBoard && (
                 <li className="nav-item">
                   <Link to={"/educacao"} className="nav-link">
-                    Educacao Board
+                    Educacao 
                   </Link>
                 </li>
               )}
@@ -69,7 +69,7 @@ class App extends Component {
               {showAdminBoard && (
                 <li className="nav-item">
                   <Link to={"/admin"} className="nav-link">
-                    Admin Board
+                    Admin 
                   </Link>
                 </li>
               )}
@@ -124,6 +124,11 @@ class App extends Component {
               <Route path="/responsavel" component={BoardResponsavel} />
             </Switch>
           </div>
+
+          <div class="footer">
+            <p>MEI_DISSERTAÇÃO</p>
+          </div>
+
         </div>
       </Router>
     );
