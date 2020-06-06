@@ -27,8 +27,10 @@ db.sequelize = sequelize;
 db.user = require("./user")(sequelize, Sequelize);
 db.role = require("./role")(sequelize, Sequelize);
 db.turma = require("./turma")(sequelize, Sequelize);
+db.crianca = require("./crianca")(sequelize, Sequelize);
+db.incidente = require("./incidente")(sequelize, Sequelize);
 
-// ligação user aos roles
+///// ligação user aos roles /////
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",
@@ -39,8 +41,9 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId"
 });
+///////////////////////////////////
 
-// ligação user às turmas
+////// ligação user às turmas //////
 db.user.belongsToMany(db.turma, {
   through: "turma_users",
   foreignKey: "userId",
@@ -51,6 +54,53 @@ db.turma.belongsToMany(db.user, {
   foreignKey: "turmaId",
   otherKey: "userId"
 });
+///////////////////////////////////
+
+/// ligação criancas às turmas ///
+
+// also possible:
+db.crianca.belongsTo(db.turma, {foreignKey: 'turmaId'})
+// this will add the attribute DadId to Person
+///////////////////////////////////
+
+//// ligação user às criancas ////
+db.user.belongsToMany(db.crianca, {
+  through: "crianca_users",
+  foreignKey: "userId",
+  otherKey: "criancaId"
+});
+db.crianca.belongsToMany(db.user, {
+  through: "crianca_users",
+  foreignKey: "criancaId",
+  otherKey: "userId"
+});
+///////////////////////////////////
+
+//// ligação criança a incidentes ////
+db.crianca.belongsToMany(db.incidente, {
+  through: "crianca_incidentes",
+  foreignKey: "criancaId",
+  otherKey: "incidenteId"
+});
+db.incidente.belongsToMany(db.crianca, {
+  through: "crianca_incidentes",
+  foreignKey: "incidenteId",
+  otherKey: "criancaId"
+});
+///////////////////////////////////
+
+//// ligação user a incidentes ////
+db.user.belongsToMany(db.incidente, {
+  through: "user_incidentes",
+  foreignKey: "userId",
+  otherKey: "incidenteId"
+});
+db.incidente.belongsToMany(db.user, {
+  through: "user_incidentes",
+  foreignKey: "incidenteId",
+  otherKey: "userId"
+});
+///////////////////////////////////
 
 //roles
 db.ROLES = ["admin", "educacao", "responsavel"];

@@ -32,7 +32,6 @@ isAdmin = (req, res, next) => {
           return;
         }
       }
-
       res.status(403).send({
         message: "Require Admin Role!"
       });
@@ -104,4 +103,5 @@ const authJwt = {
   isResponsavel: isResponsavel,
   isEducacaoOrAdmin: isEducacaoOrAdmin
 };
+
 module.exports = authJwt;

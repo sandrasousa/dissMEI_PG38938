@@ -1,6 +1,7 @@
 const db = require("../models");
 const Turma = db.turma;
 const User = db.user;
+const Crianca = db.crianca;
 
 const { Op } = require("sequelize");
 
@@ -25,7 +26,7 @@ exports.create = (req, res) => {
         User.findAll({
           where: {
             nome: {
-              [Op.or]:req.body.users
+              [Op.or]: req.body.users
             }
           }
         }).then(users => {
@@ -42,7 +43,7 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all Turmas/ find by ano from the database:
+// Encontrar todas as turmas por ano
 exports.findByAno = (req, res) => {
   const ano = req.query.ano;
   var condition = ano ? { ano: { [Op.like]: `%${ano}%` } } : null;
@@ -59,7 +60,7 @@ exports.findByAno = (req, res) => {
     });
 };
 
-// Find a single Turma with an id
+//Encontrar turma por id 
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
@@ -70,6 +71,24 @@ exports.findOne = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Error retrieving Turma with id=" + id
+      });
+    });
+};
+
+//Encontrar Crianças por Turma
+/* SELECT * FROM criancas WHERE turmaId = ?;*/
+exports.findByTurma = (req, res) => {
+  const turmaId = req.query.turmaId;
+  var condition = turmaId ? { turmaId: { [Op.like]: `%${turmaId}%` } } : null;
+
+  Crianca.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
       });
     });
 };

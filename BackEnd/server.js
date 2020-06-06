@@ -31,6 +31,10 @@ require('./app/routes/auth')(app);
 require('./app/routes/user')(app);
 // turmas
 require("./app/routes/turma")(app);
+// crianca
+require("./app/routes/crianca")(app);
+// incidente
+require("./app/routes/incidente")(app);
     
 /////////////SERVIDOR/////////////
 // localhost:4000

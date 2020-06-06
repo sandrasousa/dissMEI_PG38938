@@ -12,6 +12,7 @@ import Profile from "./components/profile";
 import BoardAdmin from "./components/board_admin";
 import BoardEducacao from "./components/board_educacao";
 import BoardResponsavel from "./components/board_responsavel";
+import EditTurma from "./components/edit_turma";
 
 class App extends Component {
   constructor(props) {
@@ -49,7 +50,6 @@ class App extends Component {
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
             <Link to={"/"} className="navbar-brand">
-              <i>Sandra Sousa | PG38938 </i>
             </Link>
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
@@ -122,11 +122,12 @@ class App extends Component {
               <Route path="/educacao" component={BoardEducacao} />
               <Route path="/admin" component={BoardAdmin} />
               <Route path="/responsavel" component={BoardResponsavel} />
+              <Route path="/turmas/:id" component={EditTurma} />
             </Switch>
           </div>
 
           <div class="footer">
-            <p>MEI_DISSERTAÇÃO</p>
+            <p>MEI_DISSERTAÇÃO | Sandra Sousa_PG38938</p>
           </div>
 
         </div>

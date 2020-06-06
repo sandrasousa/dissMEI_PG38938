@@ -1,10 +1,10 @@
-const controller = require("../controllers/turma");
+const controller = require("../controllers/incidente");
 
 module.exports = app => { 
     // Create a new Turma
-    app.post('/api/turmas/add', controller.create);
+    app.post('/api/incidente/add', controller.create);
   
-    // Retrieve all Turmas
+    /* Retrieve all Turmas
     app.get('/api/turmas', controller.findByAno);
   
     // Retrieve a single Turmas with id
@@ -16,5 +16,5 @@ module.exports = app => {
     app.put('/api/turmas/update/:id', controller.update);
   
     // Delete a Turma with id
-    app.delete('/api/turmas/delete/:id', controller.delete);
+    app.delete('/api/turmas/delete/:id', controller.delete); */
   };
