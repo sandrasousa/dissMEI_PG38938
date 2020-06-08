@@ -7,42 +7,49 @@ const { Op } = require("sequelize");
 
 // Adicionar nova criança
 exports.create = (req, res) => {
-
-   // Validate request
-   if (!req.body.nome) {
-    res.status(400).send({
-      message: "O conteúdo não pode estar vazio!"
-    })
-    return;
-  }
-
-  // Salvar criança
   Crianca.create({
     nome: req.body.nome,
     apelido: req.body.apelido,
     dataNasicmento: req.body.dataNasicmento,
     sexo: req.body.sexo
   })
-    .then(crianca => {
-      if (req.body.users) {
-        User.findAll({
-          where: {
-            nome: {
-              [Op.or]:req.body.users
+  .then(crianca => {
+    if (req.body.turmas || req.body.users) {
+      Turma.findAll({
+        where: {
+            ano: {
+                [Op.or]: req.body.turmas
+            },
+            classe : {
+                [Op.or]: req.body.turmas
             }
+        }
+      }).then(turmas => {
+        crianca.setTurmas(turmas).then(() => {
+          res.send({ message: "Incidente registada com sucesso!" });
+        });
+      })
+      User.findAll({
+          where: {
+              nome: {
+                  [Op.or]: req.body.users
+              },
+              apelido : {
+                  [Op.or]: req.body.users
+              }
           }
         }).then(users => {
           crianca.setUsers(users).then(() => {
-            res.send({ message: "Criança registada com sucesso!" });
+            res.send({ message: "Incidente registada com sucesso!" });
           });
         });
-       } else {
-        res.send({ message: "Criança adicionada sem user!" });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
+    } else {err => { 
+        res.status(500).send({ message: err.message })}
+    }
+  })
+  .catch(err => {
+    res.status(500).send({ message: err.message });
+  })
 };
 
 // Encontrar todas as Crianças por nome e apelido
@@ -62,6 +69,24 @@ exports.findByNome = (req, res) => {
         err.message || "Some error occurred while retrieving crianças."
     });
   });
+};
+
+//Encontrar Crianças por Turma
+/* SELECT * FROM criancas WHERE turmaId = ?;*/
+exports.findByTurma = (req, res) => {
+  const turmaId = req.query.turmaId;
+  var condition = turmaId ? { turmaId: { [Op.like]: `%${turmaId}%` } } : null;
+
+  Crianca.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
 };
 
 // Find a single Turma with an id

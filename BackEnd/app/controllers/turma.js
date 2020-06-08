@@ -7,39 +7,62 @@ const { Op } = require("sequelize");
 
 // Create and Save a new Turma
 exports.create = (req, res) => {
-
-   // Validate request
-   if (!req.body.ano) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-    return;
-  }
-
   // Save turma to Database
   Turma.create({
     ano: req.body.ano,
     classe: req.body.classe
   })
-    .then(turma => {
-      if (req.body.users) {
-        User.findAll({
-          where: {
+  .then(turma => {
+    if (req.body.criancas || req.body.users) {
+      Crianca.findAll({
+        where: {
             nome: {
-              [Op.or]: req.body.users
+                [Op.or]: req.body.criancas
+            },
+            apelido : {
+                [Op.or]: req.body.criancas
             }
+        }
+      }).then(criancas => {
+        turma.setCriancas(criancas).then(() => {
+          res.send({ message: "Incidente registada com sucesso!" });
+        });
+      })      
+      User.findAll({
+          where: {
+              nome: {
+                  [Op.or]: req.body.users
+              },
+              apelido : {
+                  [Op.or]: req.body.users
+              }
           }
         }).then(users => {
           turma.setUsers(users).then(() => {
-            res.send({ message: "Turma registada com sucesso!" });
+            res.send({ message: "Incidente registada com sucesso!" });
           });
         });
-      } else {
-        res.send({ message: "Turma adicionada sem educador!" });
-      }
+    } else {err => { 
+        res.status(500).send({ message: err.message })}
+    }
+  })
+  .catch(err => {
+    res.status(500).send({ message: err.message });
+  })
+};
+
+// Encontrar todas as turmas
+exports.findTurmas = (req, res) => {
+
+  Turma.findAll()
+    .then(data => {
+      res.send(data);
     })
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
     });
 };
 
@@ -71,24 +94,6 @@ exports.findOne = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Error retrieving Turma with id=" + id
-      });
-    });
-};
-
-//Encontrar Crianças por Turma
-/* SELECT * FROM criancas WHERE turmaId = ?;*/
-exports.findByTurma = (req, res) => {
-  const turmaId = req.query.turmaId;
-  var condition = turmaId ? { turmaId: { [Op.like]: `%${turmaId}%` } } : null;
-
-  Crianca.findAll({ where: condition })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials."
       });
     });
 };

@@ -12,6 +12,7 @@ import Profile from "./components/profile";
 import BoardAdmin from "./components/board_admin";
 import BoardEducacao from "./components/board_educacao";
 import BoardResponsavel from "./components/board_responsavel";
+import Turma from "./components/turma";
 import EditTurma from "./components/edit_turma";
 
 class App extends Component {
@@ -49,8 +50,6 @@ class App extends Component {
       <Router>
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <Link to={"/"} className="navbar-brand">
-            </Link>
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link to={"/home"} className="nav-link">
@@ -87,12 +86,16 @@ class App extends Component {
               <div className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <Link to={"/profile"} className="nav-link">
-                    {currentUser.username}
+                    {currentUser.nome && currentUser.apelido ? (
+                      <p>{currentUser.nome} {currentUser.apelido}</p>
+                    ) : (
+                      <p>{currentUser.username}</p>
+                    )}
                   </Link>
                 </li>
                 <li className="nav-item">
                   <a href="/login" className="nav-link" onClick={this.logOut}>
-                    LogOut
+                    Logout
                   </a>
                 </li>
               </div>
@@ -122,6 +125,7 @@ class App extends Component {
               <Route path="/educacao" component={BoardEducacao} />
               <Route path="/admin" component={BoardAdmin} />
               <Route path="/responsavel" component={BoardResponsavel} />
+              <Route path="/turmas" component={Turma} />
               <Route path="/turmas/:id" component={EditTurma} />
             </Switch>
           </div>

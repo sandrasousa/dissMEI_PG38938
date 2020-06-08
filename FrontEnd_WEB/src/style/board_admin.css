@@ -1,3 +1,11 @@
+.header {
+    padding: 25px;
+    text-align: center;
+    background: #204060;
+    color: white;
+    font-size: 25px;
+  }
+
 .search {
     float: right;
     padding: 6px;

@@ -1,16 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
     const Incidente = sequelize.define("incidentes", {
       descricao: {
-        type: Sequelize.STRING(100)
+        type: Sequelize.STRING(100),
+        allowNull: false 
       },
       data: {
-        type: Sequelize.DATE                        
+        type: Sequelize.DATE,
+        allowNull: false                  
       },
       comentario: {
-        type: Sequelize.STRING(1000)
+        type: Sequelize.STRING(1000),
+        allowNull: true 
       },
       anexo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: true 
       }
     });
 

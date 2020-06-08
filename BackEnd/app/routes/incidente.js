@@ -1,20 +1,27 @@
+const { authJwt } = require("../middleware");
 const controller = require("../controllers/incidente");
 
 module.exports = app => { 
-    // Create a new Turma
-    app.post('/api/incidente/add', controller.create);
-  
-    /* Retrieve all Turmas
-    app.get('/api/turmas', controller.findByAno);
-  
-    // Retrieve a single Turmas with id
-    app.get('/api/turmas/:id', controller.findOne);
+  app.use(function(req, res, next) {
+    res.header(
+      "Access-Control-Allow-Headers",
+      "x-access-token, Origin, Content-Type, Accept"
+    );
+    next();
+  });
 
-    app.get('/api/criancas/turmas', controller.findByTurma);
+    // Create a new Incidente
+    app.post('/api/incidente/add', authJwt.verifyToken, controller.create);
 
-    // Update a Turma with id
-    app.put('/api/turmas/update/:id', controller.update);
+    // Encontrar Incidentes por id da Crianca
+    app.get('/api/incidentes/crianca', authJwt.verifyToken, controller.findByCrianca);
   
-    // Delete a Turma with id
-    app.delete('/api/turmas/delete/:id', controller.delete); */
+    // Retrieve a single Incidente with id
+    app.get('/api/incidente/:id', authJwt.verifyToken, controller.findOne);
+
+    // Update a Incidente with id
+    app.put('/api/incidente/update/:id', authJwt.verifyToken, controller.update);
+  
+    // Delete a Incidente with id
+    app.delete('/api/incidente/delete/:id', authJwt.verifyToken, controller.delete); 
   };
