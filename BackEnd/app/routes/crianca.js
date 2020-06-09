@@ -15,12 +15,9 @@ module.exports = app => {
   
     // Retrieve all Turmas
     app.get('/api/criancas', authJwt.verifyToken, controller.findByNome);
-
-    // Encontrar Crianças por Turma
-    app.get('/api/criancas/turma', authJwt.verifyToken, controller.findByTurma);
   
     // Retrieve a single Turmas with id
-    app.get('/api/criancas/:id', authJwt.verifyToken, controller.findOne);
+    app.get('/api/criancas', authJwt.verifyToken, controller.findOne);
   
     // Update a Turma with id
     app.put('/api/criancas/update/:id', authJwt.verifyToken, controller.update);

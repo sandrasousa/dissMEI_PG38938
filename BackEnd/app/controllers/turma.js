@@ -1,4 +1,6 @@
 const db = require("../models");
+const config = require("../config/db");7
+
 const Turma = db.turma;
 const User = db.user;
 const Crianca = db.crianca;
@@ -64,6 +66,32 @@ exports.findTurmas = (req, res) => {
           err.message || "Some error occurred while retrieving tutorials."
       });
     });
+};
+
+
+//Encontrar Crianças por Turma
+/* SELECT * FROM criancas INNER JOIN turmas WHERE turmas.id = ?;*/
+exports.findByTurmaCriancas = (req, res) => { 
+  const id = req.params.id;
+
+  Crianca.findAll({
+    include: [{
+      model: Turma,
+      as: "turma",
+      where: {id
+      }
+    }]
+   
+  })
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving tutorials."
+    });
+  });
 };
 
 // Encontrar todas as turmas por ano

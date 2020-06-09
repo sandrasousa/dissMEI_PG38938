@@ -38,7 +38,7 @@ export default class BoardAdmin extends Component {
   render() {
     return (
       <Container>
-        <header class="header">
+        <header className="header">
           <p>{this.state.content}</p>
           </header>
           

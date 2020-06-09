@@ -71,24 +71,6 @@ exports.findByNome = (req, res) => {
   });
 };
 
-//Encontrar Crianças por Turma
-/* SELECT * FROM criancas WHERE turmaId = ?;*/
-exports.findByTurma = (req, res) => {
-  const turmaId = req.query.turmaId;
-  var condition = turmaId ? { turmaId: { [Op.like]: `%${turmaId}%` } } : null;
-
-  Crianca.findAll({ where: condition })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials."
-      });
-    });
-};
-
 // Find a single Turma with an id
 /* SELECT * FROM criancas WHERE id = ?; */
 exports.findOne = (req, res) => {

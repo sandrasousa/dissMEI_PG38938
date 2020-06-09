@@ -12,8 +12,9 @@ import Profile from "./components/profile";
 import BoardAdmin from "./components/board_admin";
 import BoardEducacao from "./components/board_educacao";
 import BoardResponsavel from "./components/board_responsavel";
-import Turma from "./components/turma";
-import EditTurma from "./components/edit_turma";
+import Turmas from "./components/apagar";
+import TurmaCriancas from "./components/turmaCriancas";
+import EditTurma from "./components/turmaEditar";
 
 class App extends Component {
   constructor(props) {
@@ -125,12 +126,13 @@ class App extends Component {
               <Route path="/educacao" component={BoardEducacao} />
               <Route path="/admin" component={BoardAdmin} />
               <Route path="/responsavel" component={BoardResponsavel} />
-              <Route path="/turmas" component={Turma} />
+              <Route path="/turmas" component={Turmas} />
+              <Route path="/turmas/criancas/:id" component={TurmaCriancas} />
               <Route path="/turmas/:id" component={EditTurma} />
             </Switch>
           </div>
 
-          <div class="footer">
+          <div className="footer">
             <p>MEI_DISSERTAÇÃO | Sandra Sousa_PG38938</p>
           </div>
 

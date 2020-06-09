@@ -27,10 +27,6 @@ class CriancaDataService {
   findByAno(ano) {
     return axios.get(API_URL + `/?ano=${ano}`, { headers: authHeader() });
   }
-
-  findByTurma(id) {
-    return axios.get('http://localhost:4000/api/criancas/turma' + `/?id=${id}`, { headers: authHeader() });
-  }
   
 }
 

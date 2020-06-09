@@ -27,6 +27,11 @@ class TurmaDataService {
   findByAno(ano) {
     return axios.get(API_URL + `/?ano=${ano}`, { headers: authHeader() });
   }
+
+  findByTurmaCriancas(id) {
+    return axios.get(API_URL + `/criancas/${id}`, { headers: authHeader() });
+  }
+
 }
 
 export default new TurmaDataService();

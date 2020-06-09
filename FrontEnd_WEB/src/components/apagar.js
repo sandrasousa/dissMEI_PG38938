@@ -181,7 +181,8 @@ export default class Turma extends Component {
                 turmas.map((turma, index) => (
 
               <tr>
-                <td> <Link to={"/turmas"}> {turma.id} </Link> </td> 
+                
+                <td> <Link to={"/criancas/turma/" + turma.id}> {turma.id} </Link> </td> 
                   <td>{turma.ano}</td>
                 <td>{turma.classe}</td>
                 <td></td>

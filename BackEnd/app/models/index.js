@@ -58,8 +58,11 @@ db.turma.belongsToMany(db.user, {
 
 /// ligação criancas às turmas ///
 
-// also possible:
-db.crianca.belongsTo(db.turma, {foreignKey: 'turmaId'})
+db.turma.hasMany(db.crianca, { as: "criancas" });
+db.crianca.belongsTo(db.turma, {
+  foreignKey: "turmaId",
+  as: "turma"
+});
 // this will add the attribute DadId to Person
 ///////////////////////////////////
 
