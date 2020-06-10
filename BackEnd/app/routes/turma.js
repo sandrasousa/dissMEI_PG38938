@@ -10,16 +10,16 @@ module.exports = app => {
     next();
   });
     // Retrieve all Turmas
-    app.get('/api/turmas', authJwt.verifyToken, controller.findTurmas);
+    app.get('/api/turmas', authJwt.verifyToken, authJwt.isEducacaoOrAdmin, controller.findTurmas);
 
     // Create a new Turma
-    app.post('/api/turmas/add', authJwt.verifyToken, controller.create);
+    app.post('/api/turmas/add', authJwt.verifyToken, authJwt.isAdmin, controller.create);
   
     // Retrieve all Turmas
     app.get('/api/turmas', authJwt.verifyToken, controller.findByAno);
 
     // Encontrar Crianças por Turma
-    app.get('/turmas/criancas/:id', authJwt.verifyToken, controller.findByTurmaCriancas);
+    app.get('/api/turmas/criancas/:id', authJwt.verifyToken, controller.findByTurmaCriancas);
   
     // Retrieve a single Turmas with id
     app.get('/api/turmas/:id', authJwt.verifyToken, controller.findOne);

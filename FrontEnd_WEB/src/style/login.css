@@ -1,3 +1,15 @@
+.col-md-12{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    left: 25%;
+    margin-right: -50%;
+} 
+
+.form {
+    border-top: 3px solid #F7B733;
+    width: 50%;
+}
+
  .btn{
      background-color: #204060;
      color: white;

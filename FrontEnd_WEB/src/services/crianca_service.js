@@ -24,10 +24,10 @@ class CriancaDataService {
     return axios.delete(API_URL +  `${id}`, { headers: authHeader() });
   }
 
-  findByAno(ano) {
-    return axios.get(API_URL + `/?ano=${ano}`, { headers: authHeader() });
+  findByNome(nome) {
+    return axios.get(API_URL + `/?nome=${nome}`, { headers: authHeader() });
   }
   
 }
 
-export default new TurmaDataService();
+export default new CriancaDataService();

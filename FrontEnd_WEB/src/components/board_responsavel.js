@@ -34,7 +34,7 @@ export default class BoardResponsavel extends Component {
   render() {
     return (
       <div className="container">
-        <header className="jumbotron">
+        <header className="header">
           <p>{this.state.content}</p>
         </header>
       </div>

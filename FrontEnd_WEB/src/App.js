@@ -12,9 +12,9 @@ import Profile from "./components/profile";
 import BoardAdmin from "./components/board_admin";
 import BoardEducacao from "./components/board_educacao";
 import BoardResponsavel from "./components/board_responsavel";
-import Turmas from "./components/apagar";
-import TurmaCriancas from "./components/turmaCriancas";
-import EditTurma from "./components/turmaEditar";
+import Turmas from "./components/pages/turmas";
+import TurmaCriancas from "./components/pages/turmaCriancas";
+import EditTurma from "./components/pages/turmaEditar";
 
 class App extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
+          <nav className="navbar navbar-expand">
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link to={"/home"} className="nav-link">
@@ -127,8 +127,8 @@ class App extends Component {
               <Route path="/admin" component={BoardAdmin} />
               <Route path="/responsavel" component={BoardResponsavel} />
               <Route path="/turmas" component={Turmas} />
-              <Route path="/turmas/criancas/:id" component={TurmaCriancas} />
-              <Route path="/turmas/:id" component={EditTurma} />
+              <Route path="/turma/criancas/:id" component={TurmaCriancas} />
+              <Route path="/turma/:id" component={EditTurma} />
             </Switch>
           </div>
 

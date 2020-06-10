@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import TurmaDataService from "../services/turma_service";
+
+import TurmaDataService from "../../services/turma_service";
 
 export default class Turma extends Component {
   constructor(props) {

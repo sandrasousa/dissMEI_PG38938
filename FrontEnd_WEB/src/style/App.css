@@ -13,6 +13,23 @@
   color: white;
 }
 
+.navbar {
+  
+  background-color: #4ABDAC;
+  text-decoration: none;
+  color: white;
+}
+
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link:hover {
+  color: #DFDCE3;
+}
+
 .footer {
   left: 0;
   bottom: 0;

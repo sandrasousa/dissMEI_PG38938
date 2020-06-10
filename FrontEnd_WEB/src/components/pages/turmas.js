@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Container } from 'reactstrap';
 
-import TurmaDataService from "../services/turma_service";
+import TurmaDataService from "../../services/turma_service";
 
-import "../style/board_admin.css";
+import "../../style/board_admin.css";
 
 export default class Turma extends Component {
   constructor(props) {
@@ -101,6 +100,7 @@ export default class Turma extends Component {
     });
   }
 
+  //ADICIONAR TURMAS
   saveTurma() {
     var data = {
       ano: this.state.ano,
@@ -132,12 +132,12 @@ export default class Turma extends Component {
   render() {
     const { searchAno, turmas, currentTurma, currentIndex } = this.state;
     return (
-      <Container>
-        <header class="header">
+      <div className="container">
+        <header className="header">
           <p>TURMAS</p>
           </header>
 
-        <Container>
+        <div className="container">
         <div className="search">
             <div className="input-group">
               <input
@@ -158,43 +158,41 @@ export default class Turma extends Component {
               </div>
             </div>
           </div>
-          </Container>
+          </div>
         
         <br/><br/><br/>
         <hr/>
-        <Container>
+        <div className="container">
         <div className="List">
           <div className="turmas">
             <h5>Listas de Turmas</h5>
-            
-           
+            <br/>           
             <table>
-              <tr>
-                <th></th>
-                <th>Ano</th>
-                <th>Classe</th>
-                <th>Responsavel</th>
-                <th></th>
-              </tr>
-
-              {turmas &&
-                turmas.map((turma, index) => (
-
-              <tr>
-                
-                <td> <Link to={"/criancas/turma/" + turma.id}> {turma.id} </Link> </td> 
-                  <td>{turma.ano}</td>
-                <td>{turma.classe}</td>
-                <td></td>
-                <td className={
-                      " " +
-                      (index === currentIndex ? "" : "")
-                    }
-                    onClick={() => this.setActiveTurma(turma, index)}
-                    key={index}>Editar</td>
-              </tr>
-              ))}
-
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Ano</th>
+                  <th>Classe</th>
+                  <th>Responsavel</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {turmas &&
+                  turmas.map((turma, index) => (
+                <tr key={turma.id}>
+                  <td> <Link to={"/turma/criancas/" + turma.id}> {turma.id} </Link> </td> 
+                  <td className={
+                        " " +
+                        (index === currentIndex ? "" : "")
+                      }
+                      onClick={() => this.setActiveTurma(turma, index)}
+                      key={index}>{turma.ano}</td>
+                  <td>{turma.classe}</td>
+                  <td></td>
+                </tr>
+                ))}
+              </tbody>
             </table>
           </div>
           
@@ -216,7 +214,7 @@ export default class Turma extends Component {
                 </div>
                 
                 <Link
-                  to={"/turmas/" + currentTurma.id}
+                  to={"/turma/" + currentTurma.id}
                   className="btn"
                 >
                 Edit
@@ -231,7 +229,7 @@ export default class Turma extends Component {
             )}
           </div>
         </div>
-        </Container>
+        </div>
 
         <br/>
         <hr/>
@@ -245,9 +243,12 @@ export default class Turma extends Component {
               </button>
             </div>
           ) : (
-            <div>
+            <div className="col-md-12">
+              <h4>Adicionar Nova Turma</h4>
+              <br/>
+            <div className="form">
               <div className="form-group">
-                <label htmlFor="title">Ano</label>
+                <label htmlFor="title"><b>Ano</b></label>
                 <input
                   type="text"
                   className="form-control"
@@ -260,7 +261,7 @@ export default class Turma extends Component {
               </div>
 
               <div className="form-group">
-                <label htmlFor="description">Classe</label>
+                <label htmlFor="description"><b>Classe</b></label>
                 <input
                   type="text"
                   className="form-control"
@@ -276,10 +277,10 @@ export default class Turma extends Component {
                 Adicionar
               </button>
             </div>
+            </div>
           )}
         </div>
-
-      </Container>
+      </div>
     );
   }
 }

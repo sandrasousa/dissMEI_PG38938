@@ -15,11 +15,12 @@ export default class Profile extends Component {
 
     return (
       <div className="container">
-        <header className="jumbotron">
-          <h3> Bem Vindo!
+        <header className="header">
+          <h4> Bem Vindo! <br/>
             <strong>{currentUser.nome} {currentUser.apelido}</strong>
-          </h3>
+          </h4>
         </header>
+
         <p>
           <strong>Email:</strong>{" "}
           {currentUser.email}

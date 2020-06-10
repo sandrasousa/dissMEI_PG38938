@@ -85,8 +85,11 @@ export default class Login extends Component {
   render() {
     return (
       <div className="col-md-12">
-        <div className="card card-container">
 
+        <h2> Login </h2>
+        <br/> <br/>
+
+        <div className="form">
           <Form
             onSubmit={this.handleLogin}
             ref={c => {
@@ -94,11 +97,12 @@ export default class Login extends Component {
             }}
           >
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username"><b>Username</b></label>
               <Input
                 type="text"
                 className="form-control"
                 name="username"
+                placeholder="username"
                 value={this.state.username}
                 onChange={this.onChangeUsername}
                 validations={[required]}
@@ -106,11 +110,12 @@ export default class Login extends Component {
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password"><b>Password</b></label>
               <Input
                 type="password"
                 className="form-control"
                 name="password"
+                placeholder="********"
                 value={this.state.password}
                 onChange={this.onChangePassword}
                 validations={[required]}
@@ -119,13 +124,13 @@ export default class Login extends Component {
 
             <div className="form-group">
               <button
-                className="btn btn-block"
+                className="btn btn-primary btn-block"
                 disabled={this.state.loading}
               >
                 {this.state.loading && (
                   <span className="spinner-border spinner-border-sm"></span>
                 )}
-                <span>Login</span>
+                <h5>Login</h5>
               </button>
             </div>
 
