@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import TurmaDataService from "../../services/turma_service";
 
+import "../../style/board_admin.css";
+
 export default class Turma extends Component {
   constructor(props) {
     super(props);
@@ -94,9 +96,9 @@ export default class Turma extends Component {
     const { currentTurma } = this.state;
 
     return (
-      <div>
+      <div className="col-md-12">
         {currentTurma ? (
-          <div className="edit-form">
+          <div className="form">
             <h4>Turma</h4>
             <form>
               <div className="form-group">
@@ -121,22 +123,22 @@ export default class Turma extends Component {
               </div>
             </form>
 
-            <strong>Responsável:</strong>
+            <button
+              type="submit"
+              className="btn-update"
+              onClick={this.updateTurma}
+            >
+              Atualizar
+            </button>
 
             <button
-              className="badge badge-danger mr-2"
+              className="btn-delete"
               onClick={this.deleteTurma}
             >
               Apagar
             </button>
 
-            <button
-              type="submit"
-              className="badge badge-success"
-              onClick={this.updateTurma}
-            >
-              Atualizar
-            </button>
+            
             <p>{this.state.message}</p>
           </div>
         ) : (

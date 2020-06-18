@@ -28,8 +28,7 @@ export default class Turma extends Component {
 
       id: null,
       ano: "",
-      classe: "",
-      users: [""]
+      classe: ""
     };
   }
 
@@ -137,7 +136,7 @@ export default class Turma extends Component {
           <p>TURMAS</p>
           </header>
 
-        <div className="container">
+          <div className="container">
         <div className="search">
             <div className="input-group">
               <input
@@ -173,8 +172,6 @@ export default class Turma extends Component {
                   <th></th>
                   <th>Ano</th>
                   <th>Classe</th>
-                  <th>Responsavel</th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -189,7 +186,6 @@ export default class Turma extends Component {
                       onClick={() => this.setActiveTurma(turma, index)}
                       key={index}>{turma.ano}</td>
                   <td>{turma.classe}</td>
-                  <td></td>
                 </tr>
                 ))}
               </tbody>
@@ -206,12 +202,18 @@ export default class Turma extends Component {
                   </label>{" "}
                   {currentTurma.ano}
                 </div>
+                {currentTurma.classe ? ( 
                 <div>
                   <label>
                     <strong>Classe:</strong>
                   </label>{" "}
                   {currentTurma.classe}
-                </div>
+                </div> 
+                ) : (
+                  <div>
+                  <label><strong>Sem classe!</strong></label>
+                  </div>
+                )}
                 
                 <Link
                   to={"/turma/" + currentTurma.id}

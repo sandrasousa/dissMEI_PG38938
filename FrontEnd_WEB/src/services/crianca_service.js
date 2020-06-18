@@ -17,11 +17,11 @@ class CriancaDataService {
   }
 
   update(id, data) {
-    return axios.put(API_URL + `${id}`, data, { headers: authHeader() });
+    return axios.put(API_URL + `/update/${id}`, data, { headers: authHeader() });
   }
 
   delete(id) {
-    return axios.delete(API_URL +  `${id}`, { headers: authHeader() });
+    return axios.delete(API_URL +  `/delete/${id}`, { headers: authHeader() });
   }
 
   findByNome(nome) {

@@ -15,6 +15,7 @@ import BoardResponsavel from "./components/board_responsavel";
 import Turmas from "./components/pages/turmas";
 import TurmaCriancas from "./components/pages/turmaCriancas";
 import EditTurma from "./components/pages/turmaEditar";
+import Crianca from "./components/pages/criancas";
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
     this.state = {
       showEducacaoBoard: false,
       showAdminBoard: false,
+      showResponsavelBoard: false,
       currentUser: undefined
     };
   }
@@ -35,7 +37,8 @@ class App extends Component {
       this.setState({
         currentUser: user,
         showEducacaoBoard: user.roles.includes("ROLE_EDUCACAO"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN")
+        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        showResponsavelBoard: user.roles.includes("ROLE_RESPONSAVEL")
       });
     }
   }
@@ -45,7 +48,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, showEducacaoBoard, showAdminBoard } = this.state;
+    const { currentUser, showEducacaoBoard, showAdminBoard, showResponsavelBoard } = this.state;
 
     return (
       <Router>
@@ -74,13 +77,14 @@ class App extends Component {
                 </li>
               )}
 
-              {currentUser && (
+              {showResponsavelBoard && (
                 <li className="nav-item">
                   <Link to={"/responsavel"} className="nav-link">
-                    Responsavel
+                  Responsavel 
                   </Link>
                 </li>
               )}
+
             </div>
 
             {currentUser ? (
@@ -129,6 +133,7 @@ class App extends Component {
               <Route path="/turmas" component={Turmas} />
               <Route path="/turma/criancas/:id" component={TurmaCriancas} />
               <Route path="/turma/:id" component={EditTurma} />
+              <Route path="/crianca/:id" component={Crianca}/>
             </Switch>
           </div>
 

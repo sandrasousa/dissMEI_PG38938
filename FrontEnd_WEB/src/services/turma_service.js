@@ -17,11 +17,11 @@ class TurmaDataService {
   }
 
   update(id, data) {
-    return axios.put(API_URL + `${id}`, data, { headers: authHeader() });
+    return axios.put(API_URL + `/update/${id}`, data, { headers: authHeader() });
   }
 
   delete(id) {
-    return axios.delete(API_URL +  `${id}`, { headers: authHeader() });
+    return axios.delete(API_URL +  `/delete/${id}`, { headers: authHeader() });
   }
 
   findByAno(ano) {
@@ -30,6 +30,10 @@ class TurmaDataService {
 
   findByTurmaCriancas(id) {
     return axios.get(API_URL + `/criancas/${id}`, { headers: authHeader() });
+  }
+
+  findByTurmaUsers(id) {
+    return axios.get(API_URL + `/users/${id}`, { headers: authHeader() });
   }
 
 }

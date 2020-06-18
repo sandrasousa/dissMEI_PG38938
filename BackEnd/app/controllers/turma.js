@@ -1,5 +1,4 @@
 const db = require("../models");
-const config = require("../config/db");7
 
 const Turma = db.turma;
 const User = db.user;
@@ -78,6 +77,31 @@ exports.findByTurmaCriancas = (req, res) => {
     include: [{
       model: Turma,
       as: "turma",
+      where: {id
+      }
+    }]
+   
+  })
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving tutorials."
+    });
+  });
+};
+
+//Encontrar Users por Turma
+/* SELECT * FROM criancas INNER JOIN turmas WHERE turmas.id = ?;*/
+exports.findByTurmaUsers = (req, res) => { 
+  const id = req.params.id;
+
+  User.findAll({
+    include: [{
+      model: Turma,
+      through: "turma_users",
       where: {id
       }
     }]

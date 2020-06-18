@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import TurmaDataService from "../../services/turma_service";
 import CriancaDataService from "../../services/crianca_service";
@@ -12,25 +13,26 @@ export default class Turma extends Component {
     this.refreshList = this.refreshList.bind(this);
     this.setActiveCriancas = this.setActiveCriancas.bind(this);
     this.searchCrianca = this.searchCrianca.bind(this);
-    this.onChangeCrianca = this.onChangeCrianca.bind(this);
-    this.getTurma = this.getTurma.bind(this);
-    this.getCriancas = this.getCriancas.bind(this);
+    this.onChangeSearchCrianca = this.onChangeSearchCrianca.bind(this);
 
     this.state = {
       criancas:[],
       currentCrianca: null,
       currentIndex: -1,
-      searchCrianca: ""
+      searchCrianca: "",
+      
+      users:[]
     };
   }
 
   componentDidMount() {
     this.getTurma(this.props.match.params.id);
     this.getCriancas(this.props.match.params.id);
+    this.getUsers(this.props.match.params.id);
   }
 
   //LISTAR TURMAS
-  onChangeCrianca(e) {
+  onChangeSearchCrianca(e) {
     const searchCrianca = e.target.value;
 
     this.setState({
@@ -57,6 +59,7 @@ export default class Turma extends Component {
       currentCrianca: null,
       currentIndex: -1
     });
+    this.getUsers();
   }
 
   setActiveCriancas(crianca, index) {
@@ -92,8 +95,21 @@ export default class Turma extends Component {
     });
   }
 
+  getUsers(id) {
+    TurmaDataService.findByTurmaUsers(id)
+    .then(response => {
+      this.setState({
+        users: response.data
+      });
+      console.log(response.data);
+    })
+    .catch(e=> {
+      console.log(e);
+    });
+  }
+
   render() {
-    const { searchCrianca, currentTurma, criancas } = this.state;
+    const { searchCrianca, currentTurma, currentCrianca, currentIndex, criancas, users } = this.state;
 
     return (
       <div className="container">
@@ -106,7 +122,7 @@ export default class Turma extends Component {
                 className="form-control"
                 placeholder="Procurar por Ano"
                 value={searchCrianca}
-                onChange={this.onChangeCrianca}
+                onChange={this.onChangeSearchCrianca}
               />
               <div className="input-group-append">
                 <button
@@ -141,32 +157,94 @@ export default class Turma extends Component {
                        </tr>
                      </thead>
                      <tbody>
-                     {criancas &&
-                         criancas.map((crianca, index) => ( 
-                           <tr key={crianca.id}>
-                             <td>{crianca.nome}</td>
-                             <td>{crianca.apelido}</td>
-                             <td>{crianca.dataNascimento}</td>
-                             <td>{crianca.sexo}</td>
-                           </tr>
-                         )
-                     )}
+                     {criancas && criancas.map((crianca, index) => ( 
+                        <tr key={crianca.id}>
+                          <td className={
+                        " " +
+                        (index === currentIndex ? "" : "")
+                      }
+                      onClick={() => this.setActiveCriancas(crianca, index)}
+                      key={index}>{crianca.nome}</td>
+                          <td>{crianca.apelido}</td>
+                          <td><label type="date">{crianca.dataNascimento}</label></td>
+                          <td>{crianca.sexo}</td>
+                        </tr>
+                        )
+                    )}
                      </tbody>
                    </table>
                    </div>
                    </div>
-            ): (
-              <p> Num tem </p>
+            ) : (
+
+              <div className="container">
+              <p> <i>Ainda não tem crianças!</i> </p>
+              <hr/>
+              </div>
+            )}
+
+        <div className="col-md-6">
+            {currentCrianca ? (
+              <div>
+                <h4>Turma</h4>
+                <div>
+                  <label>
+                    <strong>Ano:</strong>
+                  </label>{" "}
+                  {currentCrianca.nome}
+                </div>
+                <div>
+                  <label>
+                    <strong>Classe:</strong>
+                  </label>{" "}
+                  {currentCrianca.apelido}
+                </div> 
+                
+                <Link
+                  to={"/crianca/" + currentCrianca.id}
+                  className="btn"
+                >
+                Edit
+                </Link>
+                
+              </div>
+            ) : (
+              <div>
+                <br />
+                <small><i>Clique numa turma para mais detalhes</i></small>
+              </div>
+            )}
+          </div>
+
+
+            <br/> <br/>
+            
+            {users ? (
+               <div className="container">
+               <div className="List">
+                   <strong> Responsável </strong>
+                     {users.map((user) => ( 
+                        <p key={user.id}> {user.nome} {user.apelido} </p>
+                        )
+                    )}
+
+                   </div>
+                   </div>
+            ) : (
+
+              <div className="container">
+              <p> <i>Ainda não tem responsável definido!</i> </p>
+              </div>
 
             )}
-            <strong>Responsável:</strong>
+
 
             <p>{this.state.message}</p>
           </div>
         ) : (
           <div>
             <br />
-            <p>Please click on a Turma...</p>
+            <p>Turma não encontrada!</p>
           </div>
         )}
       </div>
