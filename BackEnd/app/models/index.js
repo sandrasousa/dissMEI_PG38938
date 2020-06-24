@@ -105,7 +105,7 @@ db.incidente.belongsToMany(db.user, {
 });
 ///////////////////////////////////
 
-//roles
-db.ROLES = ["admin", "educacao", "responsavel"];
+/*roles
+db.ROLES = ["admin", "educacao", "responsavel"]; */
 
 module.exports = db;

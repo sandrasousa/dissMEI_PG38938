@@ -63,6 +63,21 @@ exports.signin = (req, res) => {
         });
       }
 
+      var criancas = [];
+      user.getCriancas().then(crianca => {
+        for (let i = 0; i < crianca.length; i++) {
+          criancas.push(crianca[i].nome.toUpperCase());
+        }
+        
+      });
+
+      var turmas = [];
+      user.getTurmas().then(turma => {
+        for (let i = 0; i < turma.length; i++) {
+          turmas.push(turma[i].ano.toUpperCase());
+        }
+      }); 
+
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
@@ -83,6 +98,8 @@ exports.signin = (req, res) => {
           morada: user.morada,
           contacto: user.contacto,
           roles: authorities,
+          criancas: criancas,
+          turmas: turmas,
           accessToken: token
         });
       });

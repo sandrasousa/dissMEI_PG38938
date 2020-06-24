@@ -26,7 +26,7 @@ export default class Turma extends Component {
   }
 
   componentDidMount() {
-    this.getTurma(this.props.match.params.id);
+    this.getTurma(this.props.match.params.ano);
     this.getCriancas(this.props.match.params.id);
     this.getUsers(this.props.match.params.id);
   }
@@ -69,8 +69,8 @@ export default class Turma extends Component {
     });
   }
 
-  getTurma(id) {
-    TurmaDataService.get(id)
+  getTurma(ano) {
+    TurmaDataService.findByAno(ano)
       .then(response => {
         this.setState({
           currentTurma: response.data

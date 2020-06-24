@@ -16,6 +16,7 @@ import Turmas from "./components/pages/turmas";
 import TurmaCriancas from "./components/pages/turmaCriancas";
 import EditTurma from "./components/pages/turmaEditar";
 import Crianca from "./components/pages/criancas";
+import Turma from "./components/pages/turmas";
 
 class App extends Component {
   constructor(props) {
@@ -132,6 +133,7 @@ class App extends Component {
               <Route path="/responsavel" component={BoardResponsavel} />
               <Route path="/turmas" component={Turmas} />
               <Route path="/turma/criancas/:id" component={TurmaCriancas} />
+              <Route name="/turma/criancas" path=":ano" handler={TurmaCriancas} />
               <Route path="/turma/:id" component={EditTurma} />
               <Route path="/crianca/:id" component={Crianca}/>
             </Switch>

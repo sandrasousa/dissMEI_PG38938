@@ -20,6 +20,7 @@ class UserService {
   getResponsavelBoard() {
     return axios.get(API_URL + '/responsavel', { headers: authHeader() });
   }
+
 }
 
 export default new UserService();
