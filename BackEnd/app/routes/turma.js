@@ -21,6 +21,9 @@ module.exports = app => {
     // Encontrar Crianças por Turma
     app.get('/api/turmas/criancas/:id', authJwt.verifyToken, authJwt.isEducacaoOrAdmin, controller.findByTurmaCriancas);
 
+    // Encontrar Crianças por Turma
+    app.get('/api/turmas/criancas', controller.findByAnoCriancas);
+
      // Encontrar Users por Turma
      app.get('/api/turmas/users/:id', authJwt.verifyToken, authJwt.isEducacaoOrAdmin, controller.findByTurmaUsers);
   

@@ -11,17 +11,17 @@ module.exports = app => {
   });
 
     // Create a new Incidente
-    app.post('/api/incidente/add', authJwt.verifyToken, controller.create);
+    app.post('/api/incidentes/add', controller.create);
 
     // Encontrar Incidentes por id da Crianca
-    app.get('/api/incidentes/crianca', authJwt.verifyToken, controller.findByCrianca);
+    app.get('/api/incidentes/crianca/:id', controller.findByCrianca);
   
     // Retrieve a single Incidente with id
-    app.get('/api/incidente/:id', authJwt.verifyToken, controller.findOne);
+    app.get('/api/incidentes/:id', authJwt.verifyToken, controller.findOne);
 
     // Update a Incidente with id
-    app.put('/api/incidente/update/:id', authJwt.verifyToken, controller.update);
+    app.put('/api/incidentes/update/:id', authJwt.verifyToken, controller.update);
   
     // Delete a Incidente with id
-    app.delete('/api/incidente/delete/:id', authJwt.verifyToken, controller.delete); 
+    app.delete('/api/incidentes/delete/:id', authJwt.verifyToken, controller.delete); 
   };

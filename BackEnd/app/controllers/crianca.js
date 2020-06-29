@@ -52,6 +52,21 @@ exports.create = (req, res) => {
   })
 };
 
+// Encontrar todas as turmas
+exports.findCrianca = (req, res) => {
+
+  Crianca.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
 // Encontrar todas as Crianças por nome e apelido
 /* SELECT * FROM criancas WHERE nome = ? OR apelido = ?; */
 exports.findByNome = (req, res) => {

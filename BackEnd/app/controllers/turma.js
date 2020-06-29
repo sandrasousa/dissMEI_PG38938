@@ -93,6 +93,30 @@ exports.findByTurmaCriancas = (req, res) => {
   });
 };
 
+//Encontrar Crianças por Turma
+/* SELECT * FROM criancas INNER JOIN turmas WHERE turmas.ano = ?;*/
+exports.findByAnoCriancas = (req, res) => { 
+  const ano = req.query.ano;
+  var condition = ano ? { ano: { [Op.like]: `%${ano}%` } } : null;
+
+  Crianca.findAll({
+    include: [{
+      model: Turma,
+      as: "turma",
+      where: condition 
+    }]
+  })
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving tutorials."
+    });
+  });
+};
+
 //Encontrar Users por Turma
 /* SELECT * FROM criancas INNER JOIN turmas WHERE turmas.id = ?;*/
 exports.findByTurmaUsers = (req, res) => { 

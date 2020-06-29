@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import CriancaDataService from "../../services/crianca_service";
 
 import "../../style/board_admin.css";
+import { Link } from "react-router-dom";
 
 export default class Turma extends Component {
   constructor(props) {
@@ -144,6 +145,8 @@ export default class Turma extends Component {
             </tbody>
           </table>
           </div>
+
+      <Link to={'/incidente/criancas/' + currentCrianca.id} className="btn">Registar Incidente</Link>
 
       <div className="col-md-12">
         {currentCrianca ? (

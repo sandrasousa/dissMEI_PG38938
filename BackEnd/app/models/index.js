@@ -80,15 +80,10 @@ db.crianca.belongsToMany(db.user, {
 ///////////////////////////////////
 
 //// ligação criança a incidentes ////
-db.crianca.belongsToMany(db.incidente, {
-  through: "crianca_incidentes",
+db.crianca.hasMany(db.incidente, { as: "incidentes" });
+db.incidente.belongsTo(db.crianca, {
   foreignKey: "criancaId",
-  otherKey: "incidenteId"
-});
-db.incidente.belongsToMany(db.crianca, {
-  through: "crianca_incidentes",
-  foreignKey: "incidenteId",
-  otherKey: "criancaId"
+  as: "crianca"
 });
 ///////////////////////////////////
 

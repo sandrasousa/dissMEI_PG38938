@@ -1,9 +1,9 @@
 import axios from "axios";
 import authHeader from './auth_header';
 
-const API_URL = 'http://localhost:4000/api/turmas';
+const API_URL = 'http://localhost:4000/api/incidentes';
 
-class TurmaDataService {
+class CriancaDataService {
   getAll() {
     return axios.get(API_URL,{ headers: authHeader() });
   }
@@ -24,22 +24,10 @@ class TurmaDataService {
     return axios.delete(API_URL +  `/delete/${id}`, { headers: authHeader() });
   }
 
-  findByAno(ano) {
-    return axios.get(API_URL + `/?ano=${ano}`, { headers: authHeader() });
+  findByNome(nome) {
+    return axios.get(API_URL + `/?nome=${nome}`, { headers: authHeader() });
   }
-
-  findByTurmaCriancas(id) {
-    return axios.get(API_URL + `/criancas/${id}`, { headers: authHeader() });
-  }
-
-  findByAnoCriancas(ano) {
-    return axios.get(API_URL + `/criancas?ano=${ano}`, { headers: authHeader() });
-  }
-
-  findByTurmaUsers(id) {
-    return axios.get(API_URL + `/users/${id}`, { headers: authHeader() });
-  }
-
+  
 }
 
-export default new TurmaDataService();
+export default new CriancaDataService();

@@ -16,6 +16,7 @@ export default class Turma extends Component {
     this.onChangeSearchCrianca = this.onChangeSearchCrianca.bind(this);
 
     this.state = {
+      currentTurma:[],
       criancas:[],
       currentCrianca: null,
       currentIndex: -1,
@@ -54,6 +55,7 @@ export default class Turma extends Component {
   }
   
   refreshList() {
+    this.getTurma();
     this.getCriancas();
     this.setState({
       currentCrianca: null,
@@ -70,7 +72,7 @@ export default class Turma extends Component {
   }
 
   getTurma(ano) {
-    TurmaDataService.findByAno(ano)
+    TurmaDataService.findByAnoCriancas(ano)
       .then(response => {
         this.setState({
           currentTurma: response.data

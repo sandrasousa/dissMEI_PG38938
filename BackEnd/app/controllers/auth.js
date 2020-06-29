@@ -74,7 +74,7 @@ exports.signin = (req, res) => {
       var turmas = [];
       user.getTurmas().then(turma => {
         for (let i = 0; i < turma.length; i++) {
-          turmas.push(turma[i].ano.toUpperCase());
+          turmas.push(turma[i].ano);
         }
       }); 
 

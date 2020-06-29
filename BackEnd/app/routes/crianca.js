@@ -9,11 +9,13 @@ module.exports = app => {
     );
     next();
   });
-  
+    
+    app.get('/api/criancas', authJwt.verifyToken, authJwt.isEducacaoOrAdmin, controller.findCrianca);
+
     // Create a new Turma
     app.post('/api/criancas/add', authJwt.verifyToken, authJwt.isAdmin, controller.create);
   
-    // Retrieve all Turmas
+    // Retrieve all Crianças por Nome
     app.get('/api/criancas', authJwt.verifyToken, controller.findByNome);
   
     // Retrieve a single Turmas with id

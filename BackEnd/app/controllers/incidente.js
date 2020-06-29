@@ -1,11 +1,11 @@
 const db = require("../models");
 const Incidente = db.incidente;
-const crianca_incidentes = db.index;
 const Crianca = db.crianca;
 const Turma = db.turma;
 const User = db.user;
 
 const { Op } = require("sequelize");
+const crianca = require("../models/crianca");
 
 // Adicionar nova criança
 // ????????????????????? "Unhandled rejection Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client" ????????????????????? 
@@ -14,24 +14,11 @@ exports.create = (req, res) => {
     descricao: req.body.descricao,
     data: req.body.data,
     comentario: req.body.comentario,
-    anexo: req.body.anexo
+    anexo: req.body.anexo,
+    criancaId: req.body.criancaId
   })
   .then(incidente => {
-    if (req.body.criancas && req.body.users) {
-      Crianca.findAll({
-        where: {
-            nome: {
-                [Op.or]: req.body.criancas
-            },
-            apelido : {
-                [Op.or]: req.body.criancas
-            }
-        }
-      }).then(criancas => {
-        incidente.setCriancas(criancas).then(() => {
-          res.send({ message: "Incidente registada com sucesso!" });
-        });
-      })      
+    if (req.body.users) {    
       User.findAll({
           where: {
               nome: {
@@ -63,14 +50,14 @@ exports.create = (req, res) => {
     INNER JOIN incidentes ON incidentes.id = crianca_incidentes.incidenteId
     WHERE criancas.id = ?; */
 exports.findByCrianca = (req, res) => {
-    const id = req.query.id;
-    var condition = { id: { [Op.like]: `%${id}%`}} ;
+    const criancaId = req.query.criancaId;
 
-    Crianca.findAll({
-        where: condition,
+    Incidente.findAll({
+        where: criancaId,
         include : [
           { 
-            model: Incidente
+            model: Crianca,
+            as: "crianca"
           }
         ]
       }).then(data => {
