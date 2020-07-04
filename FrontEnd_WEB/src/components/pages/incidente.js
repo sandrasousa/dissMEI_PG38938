@@ -18,6 +18,8 @@ export default class Incidente extends Component {
     this.saveIncidente = this.saveIncidente.bind(this);
     this.newIncidente = this.newIncidente.bind(this);
 
+    this.retriveIncidentes = this.retriveIncidentes.bind(this);
+
     this.state = {
       id: null,
       descricao: "",
@@ -25,12 +27,14 @@ export default class Incidente extends Component {
       comentario: "",
       anexo: "",
       criancaId: "",
-      users: [""]
+      users: [""],
+      incidentes: []
     };
   }
 
   componentDidMount() {
     this.getCrianca(this.props.match.params.id);
+    this.retriveIncidentes(this.props.match.params.id);
   }
 
   //ADICIONAR Incidente
@@ -102,6 +106,19 @@ export default class Incidente extends Component {
     });
   }
 
+    retriveIncidentes(id) {
+    IncidenteDataService.getCrianca(id)
+      .then(response => {
+        this.setState({
+          incidentes: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
   getCrianca(id) {
     CriancaDataService.get(id)
       .then(response => {
@@ -116,7 +133,6 @@ export default class Incidente extends Component {
   }
 
   refreshList() {
-    this.retriveCriancas();
     this.setState({
       currentCrianca: null,
       currentIndex: -1
@@ -124,15 +140,42 @@ export default class Incidente extends Component {
   }
 
   render() {
-    const { currentCrianca } = this.state;
+    const { currentCrianca, incidentes } = this.state;
 
     return (
       <div className="container">
         <header className="header">
           <p>Registo de Incidentes</p>
           </header>
-        
+
           {currentCrianca ? (
+              <div className="container">
+
+                {incidentes ? (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Data</th>
+                                <th>Comentário(s)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                     {incidentes && incidentes.map((incidente, index) => ( 
+                        <tr key={incidente.id}>
+                          <td>{incidente.descricao}</td>
+                        <td>{incidente.data}</td>
+                     <td>{incidente.comentario}</td>
+                        </tr>
+                        )
+                    )}
+                     </tbody>
+                   </table>
+                ) : (
+                <p>Sem incidentes registados</p>
+            )} 
+              
+
           <div className="submit-form">
           {this.state.submitted ? (
             <div>
@@ -194,7 +237,7 @@ export default class Incidente extends Component {
                   type="text"
                   className="form-control"
                   id="comentario"
-                  required
+                  
                   value={this.state.comentario}
                   onChange={this.onChangeComentario}
                   name="comentario"
@@ -207,7 +250,7 @@ export default class Incidente extends Component {
                   type="text"
                   className="form-control"
                   id="anexo"
-                  required
+                  
                   value={this.state.anexo}
                   onChange={this.onChangeAnexo}
                   name="anexo"
@@ -220,6 +263,7 @@ export default class Incidente extends Component {
             </div>
             </div>
           )}
+        </div>
         </div>
           ) : (
               <p>Não é possivel registar</p>

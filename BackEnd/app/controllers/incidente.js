@@ -51,9 +51,10 @@ exports.create = (req, res) => {
     WHERE criancas.id = ?; */
 exports.findByCrianca = (req, res) => {
     const criancaId = req.query.criancaId;
+    var condition = { criancaId: { [Op.like]:`%${criancaId}%` }}
 
     Incidente.findAll({
-        where: criancaId,
+        where: condition,
         include : [
           { 
             model: Crianca,

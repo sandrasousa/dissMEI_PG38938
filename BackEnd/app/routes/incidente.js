@@ -11,10 +11,10 @@ module.exports = app => {
   });
 
     // Create a new Incidente
-    app.post('/api/incidentes/add', controller.create);
+    app.post('/api/incidentes/add', authJwt.verifyToken, controller.create);
 
     // Encontrar Incidentes por id da Crianca
-    app.get('/api/incidentes/crianca/:id', controller.findByCrianca);
+    app.get('/api/incidentes/crianca', controller.findByCrianca);
   
     // Retrieve a single Incidente with id
     app.get('/api/incidentes/:id', authJwt.verifyToken, controller.findOne);

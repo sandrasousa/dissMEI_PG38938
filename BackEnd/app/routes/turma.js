@@ -16,13 +16,13 @@ module.exports = app => {
     app.post('/api/turmas/add', authJwt.verifyToken, authJwt.isAdmin, controller.create);
   
     // Retrieve all Turmas
-    app.get('/api/turmas', controller.findByAno);
+    app.get('/api/turmas', authJwt.verifyToken, controller.findByAno);
 
     // Encontrar Crianças por Turma
     app.get('/api/turmas/criancas/:id', authJwt.verifyToken, authJwt.isEducacaoOrAdmin, controller.findByTurmaCriancas);
 
     // Encontrar Crianças por Turma
-    app.get('/api/turmas/criancas', controller.findByAnoCriancas);
+    app.get('/api/turmas/criancas', authJwt.verifyToken, controller.findByAnoCriancas);
 
      // Encontrar Users por Turma
      app.get('/api/turmas/users/:id', authJwt.verifyToken, authJwt.isEducacaoOrAdmin, controller.findByTurmaUsers);

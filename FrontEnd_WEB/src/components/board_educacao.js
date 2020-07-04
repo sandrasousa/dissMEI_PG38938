@@ -52,7 +52,7 @@ export default class BoardEducacao extends Component {
           {currentUser.turmas &&
            currentUser.turmas.map((turma, index) => 
            
-           <li key={index}> <Link to={'/turma/criancas/' + turma}>{turma}</Link> </li>
+           <li key={index}> <Link to={{pathname: '/turma/criancas/',  search: turma}}>{turma}</Link> </li>
             
            )}
         </ul>

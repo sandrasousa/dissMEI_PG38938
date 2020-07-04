@@ -17,6 +17,7 @@ export default class Turma extends Component {
 
     this.state = {
       currentTurma:[],
+
       criancas:[],
       currentCrianca: null,
       currentIndex: -1,
@@ -27,7 +28,8 @@ export default class Turma extends Component {
   }
 
   componentDidMount() {
-    this.getTurma(this.props.match.params.ano);
+    this.getTurmaAno(this.props.match.params.ano);
+    this.getTurma(this.props.match.params.id);
     this.getCriancas(this.props.match.params.id);
     this.getUsers(this.props.match.params.id);
   }
@@ -71,8 +73,21 @@ export default class Turma extends Component {
     });
   }
 
-  getTurma(ano) {
+  getTurmaAno(ano) {
     TurmaDataService.findByAnoCriancas(ano)
+      .then(response => {
+        this.setState({
+          currentTurma: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  getTurma(id) {
+    TurmaDataService.get(id)
       .then(response => {
         this.setState({
           currentTurma: response.data
@@ -137,13 +152,12 @@ export default class Turma extends Component {
               </div>
             </div>
           </div>
-          </div>
+          </div> 
 
         {currentTurma ? (
           <div className="list">
             <h4>Turma</h4>
-                <p>{currentTurma.ano} {currentTurma.classe} </p>
-
+              <p>{currentTurma.ano} {currentTurma.classe} </p>
                 <br/>
             
             {criancas ? (

@@ -31,7 +31,7 @@ class App extends Component {
       currentUser: undefined
     };
   }
-
+  
   componentDidMount() {
     const user = AuthService.getCurrentUser();
 
@@ -134,10 +134,10 @@ class App extends Component {
               <Route path="/responsavel" component={BoardResponsavel} />
               <Route path="/turmas" component={Turmas} />
               <Route path="/turma/criancas/:id" component={TurmaCriancas} />
-              <Route path="/turma/criancas/:ano?" component={TurmaCriancas} />
+              <Route path="/turma/criancas/" component={TurmaCriancas} />
               <Route path="/turma/:id" component={EditTurma} />
               <Route path="/crianca/:id" component={Crianca}/>
-              <Route path="/incidente/criancas/:id" component={AddIncidente}/>
+              <Route path="/incidente/criancas/:criancaId" component={AddIncidente}/>
             </Switch>
           </div>
 

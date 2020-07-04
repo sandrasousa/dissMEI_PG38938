@@ -3,7 +3,7 @@ import authHeader from './auth_header';
 
 const API_URL = 'http://localhost:4000/api/incidentes';
 
-class CriancaDataService {
+class IncidenteDataService {
   getAll() {
     return axios.get(API_URL,{ headers: authHeader() });
   }
@@ -24,10 +24,10 @@ class CriancaDataService {
     return axios.delete(API_URL +  `/delete/${id}`, { headers: authHeader() });
   }
 
-  findByNome(nome) {
-    return axios.get(API_URL + `/?nome=${nome}`, { headers: authHeader() });
+  getCrianca(criancaId) {
+    return axios.get(API_URL + `/crianca/criancaId=${criancaId}`, { headers: authHeader() });
   }
   
 }
 
-export default new CriancaDataService();
+export default new IncidenteDataService();
