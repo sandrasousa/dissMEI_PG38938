@@ -45,12 +45,12 @@ db.user.belongsToMany(db.role, {
 
 ////// ligação user às turmas //////
 db.user.belongsToMany(db.turma, {
-  through: "turma_users",
+  through: "user_turmas",
   foreignKey: "userId",
   otherKey: "turmaId"
 });
 db.turma.belongsToMany(db.user, {
-  through: "turma_users",
+  through: "user_turmas",
   foreignKey: "turmaId",
   otherKey: "userId"
 });
@@ -68,12 +68,12 @@ db.crianca.belongsTo(db.turma, {
 
 //// ligação user às criancas ////
 db.user.belongsToMany(db.crianca, {
-  through: "crianca_users",
+  through: "user_criancas",
   foreignKey: "userId",
   otherKey: "criancaId"
 });
 db.crianca.belongsToMany(db.user, {
-  through: "crianca_users",
+  through: "user_criancas",
   foreignKey: "criancaId",
   otherKey: "userId"
 });
