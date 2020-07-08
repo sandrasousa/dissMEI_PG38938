@@ -2,6 +2,8 @@ const db = require("../models");
 const config = require("../config/auth");
 const User = db.user;
 const Role = db.role;
+const Crianca = db.crianca;
+const Turma = db.turma;
 
 const Op = db.Sequelize.Op;
 
@@ -66,7 +68,7 @@ exports.signin = (req, res) => {
       var criancas = [];
       user.getCriancas().then(crianca => {
         for (let i = 0; i < crianca.length; i++) {
-          criancas.push(crianca[i].nome.toUpperCase());
+          criancas.push(crianca[i].nome);
         }
         
       });
