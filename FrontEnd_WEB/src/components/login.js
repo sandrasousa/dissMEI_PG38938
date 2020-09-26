@@ -7,7 +7,6 @@ import AuthService from "../services/auth_service";
 
 import "../style/login.css";
 
-
 const required = value => {
   if (!value) {
     return (

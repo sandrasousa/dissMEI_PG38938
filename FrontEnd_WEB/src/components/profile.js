@@ -25,15 +25,12 @@ export default class Profile extends Component {
           <strong>Email:</strong>{" "}
           {currentUser.email}
         </p>
-        <strong>Authorities:</strong>
+        <strong>Cargos:</strong>
         <ul>
           {currentUser.roles &&
             currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
         </ul>
-        <ul>
-          {currentUser.criancas &&
-            currentUser.criancas.map((crianca, index) => <li key={index}>{crianca}</li>)}
-        </ul>
+        <strong>Turmas:</strong>
         <ul>
           {currentUser.turmas &&
             currentUser.turmas.map((turma, index) => <li key={index}>{turma}</li>)}
