@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 
 const getCurrentUser = async() => {
-  return JSON.parse(AsyncStorage.getItem('user'));;
+  await AsyncStorage.getItem('user');
 }
 
 export default class Profile extends Component {
