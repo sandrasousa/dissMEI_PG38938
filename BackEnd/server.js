@@ -35,6 +35,8 @@ require("./app/routes/turma")(app);
 require("./app/routes/crianca")(app);
 // incidente
 require("./app/routes/incidente")(app);
+// registo medico
+require("./app/routes/medico")(app);
     
 /////////////SERVIDOR/////////////
 // localhost:4000

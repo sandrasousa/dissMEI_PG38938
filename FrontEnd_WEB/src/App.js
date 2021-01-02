@@ -137,7 +137,7 @@ class App extends Component {
               <Route path="/turma/criancas/" component={TurmaCriancas} />
               <Route path="/turma/:id" component={EditTurma} />
               <Route path="/crianca/:id" component={Crianca}/>
-              <Route path="/incidente" component={AddIncidente}/>
+              <Route path="/incidentes/criancas/:id" component={AddIncidente}/>
             </Switch>
           </div>
 
