@@ -12,15 +12,14 @@ import ProfileScreen from './src/screens/profile';
 const Stack = createStackNavigator();
 
 const getCurrentUser = async() => {
-  return JSON.parse(AsyncStorage.getItem('user'));;
+  await JSON.parse(AsyncStorage.getItem('user'));;
 }
-
 
 const App = () => {
   return (
     <NavigationContainer>
       
-      {getCurrentUser? (
+      {getCurrentUser ? (
         <Stack.Navigator>
           <Stack.Screen
             name="Login"

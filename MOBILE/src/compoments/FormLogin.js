@@ -5,8 +5,28 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyb
 import Profile from '../screens/profile';
 
 import axios from "axios";
-const API_URL = "http://192.168.1.12:4000/api/auth/";
+const API_URL = "http://192.168.1.6:4000/api/auth/";
 
+const login = async (username, password) => {
+
+  return axios
+  .post(API_URL + "signin", {
+    username,
+    password
+  })
+  .then(response => {
+    if (response.data.accessToken) {
+      try{
+        return AsyncStorage.setItem("user", response.data);
+      }
+      catch(error) {
+          console.error(error)
+      }
+    }
+
+    return response.data;
+  });
+}
 
 export default class Form extends Component {
     constructor(props){        
