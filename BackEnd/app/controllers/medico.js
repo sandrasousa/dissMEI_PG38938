@@ -16,11 +16,7 @@ exports.create = (req, res) => {
     anexo: req.body.anexo,
     criancaId: req.body.criancaId
   })
-<<<<<<< HEAD
   .then(rmedico => {
-=======
-  .then(rmedicos => {
->>>>>>> a1d7b1e4d7f992b2d25faa6afd66e19dc9ca3137
     if (req.body.users) {    
       User.findAll({
           where: {
@@ -32,13 +28,8 @@ exports.create = (req, res) => {
               }
           }
         }).then(users => {
-<<<<<<< HEAD
           rmedico.setUsers(users).then(() => {
             res.send({ message: "Registo medico registada com sucesso!" });
-=======
-          incidente.setUsers(users).then(() => {
-            res.send({ message: "Incidente registada com sucesso!" });
->>>>>>> a1d7b1e4d7f992b2d25faa6afd66e19dc9ca3137
           });
         });
     } else {err => { 
