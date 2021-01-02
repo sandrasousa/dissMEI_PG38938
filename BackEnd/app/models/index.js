@@ -29,6 +29,7 @@ db.role = require("./role")(sequelize, Sequelize);
 db.turma = require("./turma")(sequelize, Sequelize);
 db.crianca = require("./crianca")(sequelize, Sequelize);
 db.incidente = require("./incidente")(sequelize, Sequelize);
+db.rmedico = require("./medico")(sequelize, Sequelize);
 
 ///// ligação user aos roles /////
 db.role.belongsToMany(db.user, {
@@ -97,6 +98,14 @@ db.incidente.belongsToMany(db.user, {
   through: "user_incidentes",
   foreignKey: "incidenteId",
   otherKey: "userId"
+});
+///////////////////////////////////
+
+//// ligação criança a registo medico ////
+db.crianca.hasMany(db.rmedico, { as: "rmedicos" });
+db.rmedico.belongsTo(db.crianca, {
+  foreignKey: "criancaId",
+  as: "crianca"
 });
 ///////////////////////////////////
 

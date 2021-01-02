@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from './auth_header';
 
-const API_URL = 'http://localhost:4000/api/criancas';
+const API_URL = 'http://192.168.1.7:4000/api/criancas';
 
 class CriancaDataService {
   getAll() {

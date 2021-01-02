@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "sandra-secret-key"
+    secret: "bearer-secret-key"
   };

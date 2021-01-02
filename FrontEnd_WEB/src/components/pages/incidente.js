@@ -106,7 +106,7 @@ export default class Incidente extends Component {
     });
   }
 
-    retriveIncidentes(id) {
+  retriveIncidentes(id) {
     IncidenteDataService.getCrianca(id)
       .then(response => {
         this.setState({
