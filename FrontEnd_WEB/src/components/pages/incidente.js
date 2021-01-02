@@ -68,7 +68,7 @@ export default class Incidente extends Component {
     });
   }
 
-  //ADICIONAR TURMAS
+  //ADICIONAR Incidentes
   saveIncidente() {
     var data = {
       descricao: this.state.descricao,
@@ -247,7 +247,7 @@ export default class Incidente extends Component {
               <div className="form-group">
                 <label htmlFor="description"><b>Anexo</b></label>
                 <input
-                  type="text"
+                  type="file"
                   className="form-control"
                   id="anexo"
                   
