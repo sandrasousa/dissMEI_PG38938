@@ -134,6 +134,7 @@ class App extends Component {
               <Route path="/responsavel" component={BoardResponsavel} />
               <Route path="/turmas" component={Turmas} />
               <Route path="/turma/criancas/:id" component={TurmaCriancas} />
+              <Route path="/turma/criancas/?ano=:ano" component={TurmaCriancas}/>
               <Route path="/turma/criancas/" component={TurmaCriancas} />
               <Route path="/turma/:id" component={EditTurma} />
               <Route path="/crianca/:id" component={Crianca}/>
