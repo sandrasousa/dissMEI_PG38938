@@ -30,12 +30,6 @@ export default class Profile extends Component {
           {currentUser.roles &&
             currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
         </ul>
-        <strong>Turmas:</strong>
-        <ul>
-          {currentUser.turmas &&
-            currentUser.turmas.map((turma, index) => <li key={index}>{turma}</li>)}
-        </ul>
-
       </div>
     );
   }

@@ -82,11 +82,11 @@ export default class Incidente extends Component {
       .then(response => {
         this.setState({
           id: response.data.id,
-          descricao: response.descricao,
-          data: response.data,
-          comentario: response.comentario,
-          anexo: response.anexo,
-          criancaId: response.criancaId
+          descricao: response.data.descricao,
+          data: response.data.data,
+          comentario: response.data.comentario,
+          anexo: response.data.anexo,
+          criancaId: response.data.criancaId
         });
         console.log(response.data);
       })
@@ -150,8 +150,9 @@ export default class Incidente extends Component {
 
           {currentCrianca ? (
               <div className="container">
-
+                   <p>{incidentes.criancaId}</p>
                 {incidentes ? (
+                 
                     <table>
                         <thead>
                             <tr>
@@ -189,21 +190,6 @@ export default class Incidente extends Component {
               <h4>Registar Incidente</h4>
               <br/>
             <div className="form">
-              
-              <div className="form-group">
-                <label htmlFor="title"><b>Criança</b></label>
-                <select className="form-control">
-                    <option
-                        type="submit"
-                        hidden
-                        id="criancaId"
-                        required
-                        value={this.state.criancaId}
-                        onChange={this.onChangeCriancaID}
-                        name="criancaId"
-                        label={`${currentCrianca.nome} ${currentCrianca.apelido}`}>{currentCrianca.id}</option>
-                </select>
-              </div>
 
               <div className="form-group">
                 <label htmlFor="title"><b>Descrição</b></label>
@@ -219,7 +205,7 @@ export default class Incidente extends Component {
               </div>
 
               <div className="form-group">
-                <label htmlFor="description"><b>Data</b></label>
+                <label htmlFor="title"><b>Data</b></label>
                 <input
                   type="date"
                   className="form-control"
@@ -237,7 +223,6 @@ export default class Incidente extends Component {
                   type="text"
                   className="form-control"
                   id="comentario"
-                  
                   value={this.state.comentario}
                   onChange={this.onChangeComentario}
                   name="comentario"
@@ -250,7 +235,30 @@ export default class Incidente extends Component {
                   type="file"
                   className="form-control"
                   id="anexo"
-                  
+                  value={this.state.anexo}
+                  onChange={this.onChangeAnexo}
+                  name="anexo"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="title"><b>Criança</b></label>
+                <select className="form-control" 
+                  name="criancaId" id="criancaId" 
+                  >
+                  <option
+                    required
+                    value={currentCrianca.id}
+                    onChange={this.onChangeCriancaID}> {`${currentCrianca.nome} ${currentCrianca.apelido}`} </option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="description"><b>Anexo</b></label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="anexo"
                   value={this.state.anexo}
                   onChange={this.onChangeAnexo}
                   name="anexo"
