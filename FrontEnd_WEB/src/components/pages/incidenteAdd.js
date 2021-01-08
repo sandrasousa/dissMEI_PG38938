@@ -204,23 +204,20 @@ export default class Incidente extends Component {
               />
             </div>
 
-            <div className="form-group">
+            <div className="select-container">
               <label htmlFor="description"><b>Crianca</b></label>
-              
-                <select >
+                <select className="form-control" value={this.state.criancaId} onChange={this.onChangeCriancaID}>
                     {criancas.map((crianca) => (
                     <option type="submit"
-                      className="form-control" 
                       id="criancaId" 
                       key={crianca.id}
                       name="criancaId"
-                      value={this.state.criancaId} 
-                      onChange={this.onChangeCriancaID}>{crianca.nome} {crianca.apelido}</option>
+                      value={crianca.id}>{crianca.nome} {crianca.apelido}</option>
                  ))}
                 </select>  
          
               </div>
-
+              <br/>
             <button onClick={this.saveIncidente} className="btn">
               Adicionar
             </button>
