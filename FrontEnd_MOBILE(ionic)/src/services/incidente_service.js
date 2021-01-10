@@ -24,8 +24,8 @@ class IncidenteDataService {
     return axios.delete(API_URL +  `/delete/${id}`, { headers: authHeader() });
   }
 
-  getCrianca(criancaId) {
-    return axios.get(API_URL + `/crianca/criancaId=${criancaId}`, { headers: authHeader() });
+  getCrianca(id) {
+    return axios.get(API_URL + `/crianca/${id}`, { headers: authHeader() });
   }
   
 }

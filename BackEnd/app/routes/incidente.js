@@ -14,7 +14,7 @@ module.exports = app => {
     app.post('/api/incidentes/add', authJwt.verifyToken, controller.create);
 
     // Encontrar Incidentes por id da Crianca
-    app.get('/api/incidentes/crianca', controller.findByCrianca);
+    app.get('/api/incidentes/crianca/:criancaId', authJwt.verifyToken, controller.findByCrianca);
   
     // Retrieve a single Incidente with id
     app.get('/api/incidentes/:id', authJwt.verifyToken, controller.findOne);

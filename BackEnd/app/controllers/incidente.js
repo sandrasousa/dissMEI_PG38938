@@ -50,7 +50,7 @@ exports.create = (req, res) => {
     INNER JOIN incidentes ON incidentes.id = crianca_incidentes.incidenteId
     WHERE criancas.id = ?; */
 exports.findByCrianca = (req, res) => {
-    const criancaId = req.query.criancaId;
+    const criancaId = req.params.criancaId;
     var condition = { criancaId: { [Op.like]:`%${criancaId}%` }}
 
     Incidente.findAll({

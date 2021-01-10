@@ -25,7 +25,7 @@ class IncidenteDataService {
   }
 
   getCrianca(criancaId) {
-    return axios.get(API_URL + `/crianca/criancaId=${criancaId}`, { headers: authHeader() });
+    return axios.get(API_URL + `/crianca/${criancaId}`, { headers: authHeader() });
   }
   
 }
