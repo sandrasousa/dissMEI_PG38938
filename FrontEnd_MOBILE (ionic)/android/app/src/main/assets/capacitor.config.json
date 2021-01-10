@@ -1,8 +1,0 @@
-{
-    "appId": "io.ionic.FrontEnd_WEB",
-    "appName": "FrontEnd_WEB",
-    "bundledWebRuntime": false,
-    "npmClient": "npm",
-    "webDir": "build",
-    "cordova": {}
-  }

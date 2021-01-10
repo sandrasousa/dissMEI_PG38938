@@ -1,7 +1,0 @@
-{
-    "name": "FrontEnd_WEB",
-    "integrations": {
-      "capacitor": {}
-    },
-    "type": "react"
-  }
