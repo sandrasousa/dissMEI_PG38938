@@ -210,13 +210,13 @@ export default class Incidente extends Component {
                     {criancas.map((crianca) => (
                     <option type="submit"
                       id="criancaId" 
-                      key={crianca.id}
+                      key={crianca}
                       name="criancaId"
                       value={crianca.id}>{crianca.nome} {crianca.apelido}</option>
                  ))}
                 </select>  
-         
               </div>
+              
               <br/>
             <button onClick={this.saveIncidente} className="btn">
               Adicionar

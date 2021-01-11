@@ -15,12 +15,15 @@ export default class Incidente extends Component {
     this.onChangeComentario = this.onChangeComentario.bind(this);
     this.onChangeAnexo = this.onChangeAnexo.bind(this);
     this.onChangeCriancaID = this.onChangeCriancaID.bind(this);
+
     this.saveIncidente = this.saveIncidente.bind(this);
     this.newIncidente = this.newIncidente.bind(this);
 
     this.retriveIncidentes = this.retriveIncidentes.bind(this);
 
     this.state = {
+      currentCrianca:[],
+      
       id: null,
       descricao: "",
       data: "",
@@ -28,12 +31,13 @@ export default class Incidente extends Component {
       anexo: "",
       criancaId: "",
       users: [""],
-      incidentes: []
+      incidentes: [],
+      
     };
   }
 
   componentDidMount() {
-    this.getCrianca(this.props.match.params.id);
+    this.getCriancaID(this.props.match.params.id);
     this.retriveIncidentes(this.props.match.params.id);
   }
 
@@ -119,7 +123,7 @@ export default class Incidente extends Component {
       });
   }
 
-  getCrianca(id) {
+  getCriancaID(id) {
     CriancaDataService.get(id)
       .then(response => {
         this.setState({
@@ -133,14 +137,11 @@ export default class Incidente extends Component {
   }
 
   refreshList() {
-    this.setState({
-      currentCrianca: null,
-      currentIndex: -1
-    });
+    this.getCriancaID();
   }
 
   render() {
-    const { currentCrianca, incidentes } = this.state;
+    const { currentCrianca, incidentes, } = this.state;
 
     return (
       <div className="container">
@@ -241,30 +242,18 @@ export default class Incidente extends Component {
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="title"><b>Criança</b></label>
-                <select className="form-control" 
-                  name="criancaId" id="criancaId" 
-                  >
-                  <option
-                    required
-                    value={currentCrianca.id}
-                    onChange={this.onChangeCriancaID}> {`${currentCrianca.nome} ${currentCrianca.apelido}`} </option>
-                </select>
+              <div className="select-container">
+              <label htmlFor="description"><b>Crianca</b></label>
+                <select className="form-control" value={this.state.criancaId} onChange={this.onChangeCriancaID}>
+                    <option type="submit"
+                      id="criancaId" 
+                      key={currentCrianca}
+                      name="criancaId"
+                      value={currentCrianca.id}>{currentCrianca.nome} {currentCrianca.apelido}</option>
+                </select>  
               </div>
 
-              <div className="form-group">
-                <label htmlFor="description"><b>Anexo</b></label>
-                <input
-                  type="file"
-                  className="form-control"
-                  id="anexo"
-                  value={this.state.anexo}
-                  onChange={this.onChangeAnexo}
-                  name="anexo"
-                />
-              </div>
-
+              <br/>
               <button onClick={this.saveIncidente} className="btn">
                 Adicionar
               </button>

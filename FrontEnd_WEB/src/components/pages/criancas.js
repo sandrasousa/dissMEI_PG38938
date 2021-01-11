@@ -146,7 +146,7 @@ export default class Turma extends Component {
           </table>
           </div>
 
-      <Link to={"/incidentes/criancas/" + currentCrianca.id} >Registar Incidente</Link>
+      <Link to={"/incidentes/criancas/" + currentCrianca.id}> Consultar Incidentes </Link>
 
       <div className="col-md-12">
         {currentCrianca ? (

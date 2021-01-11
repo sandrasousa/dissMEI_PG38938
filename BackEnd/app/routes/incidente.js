@@ -11,7 +11,7 @@ module.exports = app => {
   });
 
     // Create a new Incidente
-    app.post('/api/incidentes/add', authJwt.verifyToken, controller.create);
+    app.post('/api/incidentes/add', controller.create);
 
     // Encontrar Incidentes por id da Crianca
     app.get('/api/incidentes/crianca/:criancaId', authJwt.verifyToken, controller.findByCrianca);

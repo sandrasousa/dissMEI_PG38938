@@ -10,6 +10,9 @@ const crianca = require("../models/crianca");
 // Adicionar nova criança
 // ????????????????????? "Unhandled rejection Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client" ????????????????????? 
 exports.create = (req, res) => {
+  const criancaId = req.body.criancaId;
+  var condition = { criancaId: { [Op.like]:`%${criancaId}%` }}
+
   Incidente.create({
     descricao: req.body.descricao,
     data: req.body.data,
