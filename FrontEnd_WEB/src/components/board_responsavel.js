@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 
+import { Link } from "react-router-dom";
+
+import { Container } from 'reactstrap';
+
 import UserService from "../services/user_service";
+import AuthService from "../services/auth_service";
 
 export default class BoardResponsavel extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      content: ""
+      content: "",
+      currentUser: AuthService.getCurrentUser(),
+      criancas:[]
     };
   }
 
@@ -32,11 +39,20 @@ export default class BoardResponsavel extends Component {
   }
 
   render() {
+    const { currentUser } = this.state;
+
     return (
       <div className="container">
         <header className="header">
           <p>{this.state.content}</p>
         </header>
+
+        <strong>Os seus encarregados:</strong>
+        <br></br>
+        <ul>
+          {currentUser.criancas &&
+            currentUser.criancas.map((crianca, index) => <li key={index}>{crianca}</li>)}
+        </ul>
       </div>
     );
   }

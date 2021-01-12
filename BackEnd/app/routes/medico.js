@@ -11,17 +11,17 @@ module.exports = app => {
   });
 
     // Create a new Registo Medico
-    app.post('/api/rmedicos/add', authJwt.verifyToken, controller.create);
+    app.post('/api/pmedicos/add', authJwt.verifyToken, controller.create);
 
     // Encontrar Incidentes por id da Crianca
-    app.get('/api/remdicos/crianca', controller.findByCrianca);
+    app.get('/api/pmedicos/crianca/:criancaId', controller.findByCrianca);
   
     // Retrieve a single Incidente with id
-    app.get('/api/rmedicos/:id', authJwt.verifyToken, controller.findOne);
+    app.get('/api/pmedicos/:id', authJwt.verifyToken, controller.findOne);
 
     // Update a Incidente with id
-    app.put('/api/rmedicos/update/:id', authJwt.verifyToken, controller.update);
+    app.put('/api/pmedicos/update/:id', authJwt.verifyToken, authJwt.isAdmin, controller.update);
   
     // Delete a Incidente with id
-    app.delete('/api/rmedicos/delete/:id', authJwt.verifyToken, controller.delete); 
+    app.delete('/api/pmedicos/delete/:id', authJwt.verifyToken, authJwt.isAdmin, controller.delete); 
   };

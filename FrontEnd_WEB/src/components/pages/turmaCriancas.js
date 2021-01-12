@@ -137,7 +137,7 @@ export default class Turma extends Component {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Procurar por Ano"
+                placeholder="Procurar por Criança"
                 value={searchCrianca}
                 onChange={this.onChangeSearchCrianca}
               />
@@ -263,6 +263,56 @@ export default class Turma extends Component {
             <p>Turma não encontrada!</p>
           </div>
         )}
+
+
+        <div className="submit-form">
+          {this.state.submitted ? (
+            <div>
+              <h4>You submitted successfully!</h4>
+              <button className="btn" onClick={this.newTurma}>
+                Add
+              </button>
+            </div>
+          ) : (
+            <div className="col-md-12">
+              <h4>Adicionar Nova Turma</h4>
+              <br/>
+            <div className="form">
+              <div className="form-group">
+                <label htmlFor="title"><b>Ano</b></label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="ano"
+                  required
+                  value={this.state.ano}
+                  onChange={this.onChangeAno}
+                  name="ano"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="description"><b>Classe</b></label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="classe"
+                  required
+                  value={this.state.classe}
+                  onChange={this.onChangeClasse}
+                  name="classe"
+                />
+              </div>
+
+              <button onClick={this.saveTurma} className="btn">
+                Adicionar
+              </button>
+            </div>
+            </div>
+          )}
+        </div>
+
+
       </div>
     );
   }

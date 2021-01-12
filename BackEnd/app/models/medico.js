@@ -1,8 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
-    const RMedico = sequelize.define("rmedicos", {
+    const PMedico = sequelize.define("pmedicos", {
       tipoSanguineo: {
         type: Sequelize.STRING(100),
         allowNull: false 
+      },
+      alergia: {
+        type: Sequelize.STRING(1000),
+        allowNull: true 
+      },
+      doenca: {
+        type: Sequelize.STRING(1000),
+        allowNull: true 
+      },
+      lesao: {
+        type: Sequelize.STRING(1000),
+        allowNull: true 
       },
       comentario: {
         type: Sequelize.STRING(1000),
@@ -14,5 +26,5 @@ module.exports = (sequelize, Sequelize) => {
       }
     });
 
-    return RMedico;
+    return PMedico;
   };

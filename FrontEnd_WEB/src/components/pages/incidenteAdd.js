@@ -154,7 +154,7 @@ export default class Incidente extends Component {
 
             <div className="form-group">
               <label htmlFor="title"><b>Descrição</b></label>
-              <input
+              <textarea 
                 type="text"
                 className="form-control"
                 id="descricao"

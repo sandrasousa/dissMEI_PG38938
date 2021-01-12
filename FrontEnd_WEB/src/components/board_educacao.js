@@ -49,10 +49,8 @@ export default class BoardEducacao extends Component {
 
         <strong>As suas turmas:</strong>
         <br></br>
-        <ul>
           {currentUser.turmas &&
-            currentUser.turmas.map((turma, index) => <li key={index}><Link to={{pathname: '/turma/criancas/?ano=' + turma}}>{turma}</Link></li>)}
-        </ul>
+            currentUser.turmas.map((turma, index) => <i key={index}><Link to={{pathname: '/turma/criancas/?ano=' + turma}}>{turma}</Link></i>)}
       </div>
       </Container>
     );

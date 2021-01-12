@@ -1,5 +1,5 @@
 const db = require("../models");
-const RMedico = db.rmedicos;
+const PMedico = db.pmedico;
 const Crianca = db.crianca;
 const Turma = db.turma;
 const User = db.user;
@@ -10,13 +10,16 @@ const crianca = require("../models/crianca");
 // Adicionar nova criança
 // ????????????????????? "Unhandled rejection Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client" ????????????????????? 
 exports.create = (req, res) => {
-  RMedico.create({
+  PMedico.create({
     tipoSanguineo: req.body.tipoSanguineo,
+    alergia: req.body.alergia,
+    doenca: req.body.doenca,
+    lesao: req.body.lesao,
     comentario: req.body.comentario,
     anexo: req.body.anexo,
     criancaId: req.body.criancaId
   })
-  .then(rmedico => {
+  .then(pmedico => {
     if (req.body.users) {    
       User.findAll({
           where: {
@@ -28,7 +31,7 @@ exports.create = (req, res) => {
               }
           }
         }).then(users => {
-          rmedico.setUsers(users).then(() => {
+          pmedico.setUsers(users).then(() => {
             res.send({ message: "Registo medico registada com sucesso!" });
           });
         });
@@ -42,17 +45,17 @@ exports.create = (req, res) => {
 };
 
 /*
-//Encontrar Incidente por Crianca
+//Encontrar Perfil Medico por Crianca
 /* SELECT * 
     FROM crianca_incidentes 
     INNER JOIN criancas ON criancas.id = crianca_incidentes.criancaId 
     INNER JOIN incidentes ON incidentes.id = crianca_incidentes.incidenteId
     WHERE criancas.id = ?; */
 exports.findByCrianca = (req, res) => {
-    const criancaId = req.query.criancaId;
+    const criancaId = req.params.criancaId;
     var condition = { criancaId: { [Op.like]:`%${criancaId}%` }}
 
-    RMedico.findAll({
+    PMedico.findAll({
         where: condition,
         include : [
           { 
@@ -75,7 +78,7 @@ exports.findByCrianca = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  RMedico.findByPk(id)
+  PMedico.findByPk(id)
     .then(data => {
       res.send(data);
     })
@@ -90,7 +93,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  RMedico.update(req.body, {
+  PMedico.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -115,7 +118,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  RMedico.destroy({
+  PMedico.destroy({
     where: { id: id }
   })
     .then(num => {

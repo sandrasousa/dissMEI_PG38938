@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 //import { Link } from "react-router-dom";
 
-import IncidenteDataService from "../../services/incidente_service";
+import MedicoDataService from "../../services/medico_service";
 import CriancaDataService from "../../services/crianca_service";
 
 import "../../style/board_admin.css";
 
-export default class Incidente extends Component {
+export default class Medico extends Component {
   constructor(props) {
     super(props);
           
-    this.onChangeDescricao = this.onChangeDescricao.bind(this);
-    this.onChangeData = this.onChangeData.bind(this);
+    this.onChangeTipoSanguineo = this.onChangeTipoSanguineo.bind(this);
+    this.onChangeAlergia = this.onChangeAlergia.bind(this);
+    this.onChangeDoenca = this.onChangeDoenca.bind(this);
+    this.onChangeLesao = this.onChangeLesao.bind(this);
     this.onChangeComentario = this.onChangeComentario.bind(this);
     this.onChangeAnexo = this.onChangeAnexo.bind(this);
     this.onChangeCriancaID = this.onChangeCriancaID.bind(this);
@@ -19,38 +21,52 @@ export default class Incidente extends Component {
     this.saveIncidente = this.saveIncidente.bind(this);
     this.newIncidente = this.newIncidente.bind(this);
 
-    this.retriveIncidentes = this.retriveIncidentes.bind(this);
+    this.retriveMedico = this.retriveMedico.bind(this);
 
     this.state = {
       currentCrianca:[],
       
       id: null,
-      descricao: "",
-      data: "",
+      tipoSanguineo: "",
+      alergia: "",
+      doenca: "",
+      lesao: "",
       comentario: "",
       anexo: "",
       criancaId: "",
       users: [""],
-      incidentes: [],
+      medicos: [],
       
     };
   }
 
   componentDidMount() {
     this.getCriancaID(this.props.match.params.id);
-    this.retriveIncidentes(this.props.match.params.id);
+    this.retriveMedico(this.props.match.params.id);
   }
 
   //ADICIONAR Incidente
-  onChangeDescricao(e) {
+  onChangeTipoSanguineo(e) {
     this.setState({
-        descricao: e.target.value
+      tipoSanguineo: e.target.value
     });
   }
 
-  onChangeData(e) {
+  onChangeAlergia(e) {
     this.setState({
-        data: e.target.value
+      alergia: e.target.value
+    });
+  }
+
+  onChangeDoenca(e) {
+    this.setState({
+      doenca: e.target.value
+    });
+  }
+
+  onChangeLesao(e) {
+    this.setState({
+      lesao: e.target.value
     });
   }
 
@@ -82,13 +98,15 @@ export default class Incidente extends Component {
       criancaId: this.state.criancaId
     };
 
-    IncidenteDataService.create(data)
+    MedicoDataService.create(data)
       .then(response => {
         this.setState({
           id: response.data.id,
-          descricao: response.data.descricao,
-          data: response.data.data,
-          comentario: response.data.comentario,
+          tipoSanguineo: response.data.tipoSanguineo,
+          alergia: response.data.alergia,
+          doenca: response.data.doenca,
+          lesao: response.data.lesao,
+          comentario: response.data.comentario,          
           anexo: response.data.anexo,
           criancaId: response.data.criancaId
         });
@@ -102,19 +120,21 @@ export default class Incidente extends Component {
   newIncidente() {
     this.setState({
       id: null,
-      descricao: "",
-      data: "",
+      tipoSanguineo: "",
+      alergia: "",
+      doenca: "",
+      lesao: "",
       comentario: "",
       anexo: "",
-      criancaId: ""
+      criancaId: "",
     });
   }
 
-  retriveIncidentes(id) {
-    IncidenteDataService.getCrianca(id)
+  retriveMedico(id) {
+    MedicoDataService.getCrianca(id)
       .then(response => {
         this.setState({
-          incidentes: response.data
+          medicos: response.data
         });
         console.log(response.data);
       })
@@ -141,33 +161,37 @@ export default class Incidente extends Component {
   }
 
   render() {
-    const { currentCrianca, incidentes, } = this.state;
+    const { currentCrianca, medicos } = this.state;
 
     return (
       <div className="container">
         <header className="header">
-          <p>Registo de Incidentes</p>
+          <p>Perfil Médico</p>
           </header>
 
           {currentCrianca ? (
               <div className="container">
-                   <p>{incidentes.criancaId}</p>
-                {incidentes ? (
+                   <p>{medicos.criancaId}</p>
+                {medicos ? (
                  
                     <table>
                         <thead>
                             <tr>
                                 <th>Descrição</th>
                                 <th>Data</th>
+                                <th>Data</th>
+                                <th>Data</th>
                                 <th>Comentário(s)</th>
                             </tr>
                         </thead>
                         <tbody>
-                     {incidentes && incidentes.map((incidente, index) => ( 
-                        <tr key={incidente.id}>
-                          <td>{incidente.descricao}</td>
-                        <td><label type="date">{incidente.data}</label></td>
-                     <td>{incidente.comentario}</td>
+                     {medicos && medicos.map((medico, index) => ( 
+                        <tr key={medico.id}>
+                          <td>{medico.tipoSanguineo}</td>
+                        <td>{medico.alergia}</td>
+                        <td>{medico.doenca}</td>
+                        <td>{medico.lesao}</td>
+                     <td>{medico.comentario}</td>
                         </tr>
                         )
                     )}
@@ -199,8 +223,8 @@ export default class Incidente extends Component {
                   className="form-control"
                   id="descricao"
                   required
-                  value={this.state.descricao}
-                  onChange={this.onChangeDescricao}
+                  value={this.state.tipoSanguineo}
+                  onChange={this.onChangeTipoSanguineo}
                   name="descricao"
                 />
               </div>
@@ -208,12 +232,35 @@ export default class Incidente extends Component {
               <div className="form-group">
                 <label htmlFor="title"><b>Data</b></label>
                 <input
-                  type="date"
+                  type="text"
                   className="form-control"
                   id="data"
-                  required
-                  value={this.state.data}
-                  onChange={this.onChangeData}
+                  value={this.state.alergia}
+                  onChange={this.onChangeAlergia}
+                  name="data"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="title"><b>Data</b></label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="data"
+                  value={this.state.doenca}
+                  onChange={this.onChangeDoenca}
+                  name="data"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="title"><b>Data</b></label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="data"
+                  value={this.state.lesao}
+                  onChange={this.onChangeLesao}
                   name="data"
                 />
               </div>

@@ -24,8 +24,7 @@ module.exports = function(app) {
     controller.educacaoBoard
   );
 
-  app.get(
-    "/api/responsavel",
+  app.get("/api/responsavel",
     [authJwt.verifyToken, authJwt.isResponsavel],
     controller.responsavelBoard
   );
