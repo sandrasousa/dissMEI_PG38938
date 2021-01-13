@@ -10,6 +10,8 @@ export default class Turma extends Component {
   constructor(props) {
     super(props);
     
+    this.on
+
     this.refreshList = this.refreshList.bind(this);
     this.setActiveCriancas = this.setActiveCriancas.bind(this);
     this.searchCrianca = this.searchCrianca.bind(this);
@@ -23,6 +25,12 @@ export default class Turma extends Component {
       currentIndex: -1,
       searchCrianca: "",
       
+      id: null,
+      nome: "",
+      apelido: "",
+      dataNascimento: "",
+      sexo: "",
+
       users:[]
     };
   }
@@ -125,6 +133,66 @@ export default class Turma extends Component {
     });
   }
 
+    //ADICIONAR CRIANCAS
+    onChangeNome(e) {
+      this.setState({
+        nome: e.target.value
+      });
+    }
+  
+    onChangeApelido(e) {
+      this.setState({
+        apelido: e.target.value
+      });
+    }
+
+    onChangeDataNascimento(e) {
+      this.setState({
+        dataNascimento: e.target.value
+      });
+    }
+
+    onChangeSexo(e) {
+      this.setState({
+        sexo: e.target.value
+      });
+    }
+      
+  //ADICIONAR CRIANCAS
+  saveCrianca() {
+    var data = {
+      nome: this.state.nome,
+      apelido: this.state.apelido,
+      dataNascimento: this.state.dataNascimento,
+      sexo: this.state.sexo
+    };
+
+    CriancaDataService.create(data)
+      .then(response => {
+        this.setState({
+          id: response.data.id,
+          nome: response.data.nome,
+          apelido: response.data.apelido,
+          dataNascimento: response.data.dataNascimento,
+          sexo: response.data.sexo
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  newCrianca() {
+    this.setState({
+      id: null,
+      nome: "",
+      apelido: "",
+      dataNascimento: "",
+      sexo: ""
+    });
+  }
+
   render() {
     const { searchCrianca, currentTurma, currentCrianca, currentIndex, criancas, users } = this.state;
 
@@ -137,7 +205,7 @@ export default class Turma extends Component {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Procurar por Ano"
+                placeholder="Procurar por Criança"
                 value={searchCrianca}
                 onChange={this.onChangeSearchCrianca}
               />
@@ -263,6 +331,56 @@ export default class Turma extends Component {
             <p>Turma não encontrada!</p>
           </div>
         )}
+
+
+        <div className="submit-form">
+          {this.state.submitted ? (
+            <div>
+              <h4>You submitted successfully!</h4>
+              <button className="btn" onClick={this.newCrianca}>
+                Add
+              </button>
+            </div>
+          ) : (
+            <div className="col-md-12">
+              <h4>Adicionar Nova Turma</h4>
+              <br/>
+            <div className="form">
+              <div className="form-group">
+                <label htmlFor="title"><b>Ano</b></label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="ano"
+                  required
+                  value={this.state.ano}
+                  onChange={this.onChangeAno}
+                  name="ano"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="description"><b>Classe</b></label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="classe"
+                  required
+                  value={this.state.classe}
+                  onChange={this.onChangeClasse}
+                  name="classe"
+                />
+              </div>
+
+              <button onClick={this.saveTurma} className="btn">
+                Adicionar
+              </button>
+            </div>
+            </div>
+          )}
+        </div>
+
+
       </div>
     );
   }

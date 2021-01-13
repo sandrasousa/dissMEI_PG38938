@@ -10,6 +10,8 @@ export default class Turma extends Component {
   constructor(props) {
     super(props);
     
+    this.on
+
     this.refreshList = this.refreshList.bind(this);
     this.setActiveCriancas = this.setActiveCriancas.bind(this);
     this.searchCrianca = this.searchCrianca.bind(this);
@@ -23,6 +25,12 @@ export default class Turma extends Component {
       currentIndex: -1,
       searchCrianca: "",
       
+      id: null,
+      nome: "",
+      apelido: "",
+      dataNascimento: "",
+      sexo: "",
+
       users:[]
     };
   }
@@ -122,6 +130,66 @@ export default class Turma extends Component {
     })
     .catch(e=> {
       console.log(e);
+    });
+  }
+
+    //ADICIONAR CRIANCAS
+    onChangeNome(e) {
+      this.setState({
+        nome: e.target.value
+      });
+    }
+  
+    onChangeApelido(e) {
+      this.setState({
+        apelido: e.target.value
+      });
+    }
+
+    onChangeDataNascimento(e) {
+      this.setState({
+        dataNascimento: e.target.value
+      });
+    }
+
+    onChangeSexo(e) {
+      this.setState({
+        sexo: e.target.value
+      });
+    }
+      
+  //ADICIONAR CRIANCAS
+  saveCrianca() {
+    var data = {
+      nome: this.state.nome,
+      apelido: this.state.apelido,
+      dataNascimento: this.state.dataNascimento,
+      sexo: this.state.sexo
+    };
+
+    CriancaDataService.create(data)
+      .then(response => {
+        this.setState({
+          id: response.data.id,
+          nome: response.data.nome,
+          apelido: response.data.apelido,
+          dataNascimento: response.data.dataNascimento,
+          sexo: response.data.sexo
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  newCrianca() {
+    this.setState({
+      id: null,
+      nome: "",
+      apelido: "",
+      dataNascimento: "",
+      sexo: ""
     });
   }
 
@@ -269,7 +337,7 @@ export default class Turma extends Component {
           {this.state.submitted ? (
             <div>
               <h4>You submitted successfully!</h4>
-              <button className="btn" onClick={this.newTurma}>
+              <button className="btn" onClick={this.newCrianca}>
                 Add
               </button>
             </div>

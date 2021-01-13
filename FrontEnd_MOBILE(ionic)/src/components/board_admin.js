@@ -158,151 +158,24 @@ export default class BoardAdmin extends Component {
             </header>
 
             <div className="container">
-          <div className="search">
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Procurar por Ano"
-                  value={searchAno}
-                  onChange={this.onChangeSearchAno}
-                />
-                <div className="input-group-append">
-                  <button
-                    className="btn"
-                    type="button"
-                    onClick={this.searchAno}
-                  >
-                    Procurar
-                  </button>
-                </div>
-              </div>
+            <strong>Turmas:</strong>
+            <br></br>
+            <Link to='/turmas'>Ver Turmas</Link>
             </div>
-            </div>
-          
-          <br/><br/><br/>
-          <hr/>
-          <div className="container">
-          <div className="List">
-            <div className="turmas">
-              <h5>Listas de Turmas</h5>
-              <br/>           
-              <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Ano</th>
-                    <th>Classe</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {turmas &&
-                    turmas.map((turma, index) => (
-                  <tr key={turma.id}>
-                    <td> <Link to={"/turma/criancas/" + turma.id}> Ver </Link> </td> 
-                    <td className={
-                          " " +
-                          (index === currentIndex ? "" : "")
-                        }
-                        onClick={() => this.setActiveTurma(turma, index)}
-                        key={index}>{turma.ano}</td>
-                    <td>{turma.classe}</td>
-                  </tr>
-                  ))}
-                </tbody>
-              </table>
+            <br/>
+            
+            <div className="container">
+            <strong>Alunos:</strong>
+            <br></br>
+            <Link to='/turmas'>Ver Turmas</Link>
             </div>
             
-            <div className="col-md-6">
-              {currentTurma ? (
-                <div>
-                  <h4>Turma</h4>
-                  <div>
-                    <label>
-                      <strong>Ano:</strong>
-                    </label>{" "}
-                    {currentTurma.ano}
-                  </div>
-                  {currentTurma.classe ? ( 
-                  <div>
-                    <label>
-                      <strong>Classe:</strong>
-                    </label>{" "}
-                    {currentTurma.classe}
-                  </div> 
-                  ) : (
-                    <div>
-                    <label><strong>Sem classe!</strong></label>
-                    </div>
-                  )}
-                  
-                  <Link
-                    to={"/turma/" + currentTurma.id}
-                    className="btn"
-                  >
-                  Edit
-                  </Link>
-                  
-                </div>
-              ) : (
-                <div>
-                  <br />
-                  <small><i>Clique numa turma para mais detalhes</i></small>
-                </div>
-              )}
+            <br/>
+            <div className="container">
+            <strong>Utilizadores:</strong>
+            <br></br>
+            <Link to='/turmas'>Ver Turmas</Link>
             </div>
-          </div>
-          </div>
-
-          <br/>
-          <hr/>
-          
-            <div className="submit-form">
-            {this.state.submitted ? (
-              <div>
-                <h4>You submitted successfully!</h4>
-                <button className="btn" onClick={this.newTurma}>
-                  Add
-                </button>
-              </div>
-            ) : (
-              <div className="col-md-12">
-                <h4>Adicionar Nova Turma</h4>
-                <br/>
-              <div className="form">
-                <div className="form-group">
-                  <label htmlFor="title"><b>Ano</b></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="ano"
-                    required
-                    value={this.state.ano}
-                    onChange={this.onChangeAno}
-                    name="ano"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="description"><b>Classe</b></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="classe"
-                    required
-                    value={this.state.classe}
-                    onChange={this.onChangeClasse}
-                    name="classe"
-                  />
-                </div>
-
-                <button onClick={this.saveTurma} className="btn">
-                  Adicionar
-                </button>
-              </div>
-              </div>
-            )}
-          </div>
         </div>
       </Container>
     );

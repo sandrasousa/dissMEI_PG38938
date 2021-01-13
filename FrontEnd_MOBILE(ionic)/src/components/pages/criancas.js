@@ -133,6 +133,8 @@ export default class Turma extends Component {
                 <th>Apelido</th>
                 <th>Data de Nascimento</th>
                 <th>Sexo</th>
+                <th>Perfil Médico</th>
+                <th>Registo de Incidentes</th>
               </tr>
             </thead>
             <tbody>
@@ -141,12 +143,12 @@ export default class Turma extends Component {
                  <td>{currentCrianca.apelido}</td>
                  <td><label type="date">{currentCrianca.dataNascimento}</label></td>
                  <td>{currentCrianca.sexo}</td>
+                 <td><Link to={"/pmedicos/crianca/" + currentCrianca.id}> Consultar Perfil Médico </Link></td>
+                 <td><Link to={"/incidentes/criancas/" + currentCrianca.id}> Consultar Incidentes </Link></td>
                </tr>
             </tbody>
           </table>
           </div>
-
-      <Link to={"/incidentes/criancas/" + currentCrianca.id} >Registar Incidente</Link>
 
       <div className="col-md-12">
         {currentCrianca ? (

@@ -1,24 +1,46 @@
-import axios from "axios";
 import { AsyncStorage } from 'react-native';
 
-const API_URL = "http://192.168.1.12:4000/api/auth/";
-
-class AuthService {
-    async login(username, password) {
-
-        return axios
-      .post(API_URL + "signin", {
-        username,
-        password
-      })
-      .then(response => {
-        if (response.data.accessToken) {
-          await AsyncStorage.setItem("user", JSON.stringify(response.data));
-        }
-
-        return response.data;
-      });
+const deviceStorage = {
+  async saveKey(key, valueToSave) {
+    try {
+      await AsyncStorage.setItem(key, valueToSave);
+    } catch (error) {
+      console.log('AsyncStorage Error: ' + error.message);
     }
-} 
+  },
 
-export default new AuthService();
+  async loadJWT() {
+    try {
+      const value = await AsyncStorage.getItem('id_token');
+      if (value !== null) {
+        this.setState({
+          jwt: value,
+          loading: false
+        });
+      } else {
+        this.setState({
+          loading: false
+        });
+      }
+    } catch (error) {
+      console.log('AsyncStorage Error: ' + error.message);
+    }
+  },
+
+  async deleteJWT() {
+    try{
+      await AsyncStorage.removeItem('id_token')
+      .then(
+        () => {
+          this.setState({
+            jwt: ''
+          })
+        }
+      );
+    } catch (error) {
+      console.log('AsyncStorage Error: ' + error.message);
+    }
+  }
+};
+
+export default deviceStorage;

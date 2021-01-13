@@ -1,62 +1,42 @@
-import 'react-native-gesture-handler';
+import React, { Component } from 'react';
+import { Loading } from './src/style';
+import Auth from './src/screens/Auth';
+import LoggedIn from './src/screens/LoggedIn';
+import deviceStorage from './src/services/deviceStorage ';
 
-import * as React from 'react';
-import { Button, View, Text, AsyncStorage } from 'react-native';
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      jwt: '',
+      loading: true
+    }
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+    this.newJWT = this.newJWT.bind(this);
+    this.deleteJWT = deviceStorage.deleteJWT.bind(this);
+    this.loadJWT = deviceStorage.loadJWT.bind(this);
+    this.loadJWT();
+  }
 
-import LoginScreen from './src/screens/login';
-import ProfileScreen from './src/screens/profile';
+  newJWT(jwt){
+    this.setState({
+      jwt: jwt
+    });
+  }
 
-const Stack = createStackNavigator();
-
-const getCurrentUser = async() => {
-  await JSON.parse(AsyncStorage.getItem('user'));;
+  render() {
+    if (this.state.loading) {
+      return (
+        <Loading size={'large'} />
+       );
+    } else if (!this.state.jwt) {
+      return (
+        <Auth newJWT={this.newJWT} />
+      );
+    } else if (this.state.jwt) {
+      return (
+        <LoggedIn jwt={this.state.jwt} deleteJWT={this.deleteJWT} />
+      );
+    }
+  }
 }
-
-const App = () => {
-  return (
-    <NavigationContainer>
-      
-      {getCurrentUser ? (
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{
-              title: 'Login', //Set Header Title
-              headerStyle: {
-                backgroundColor: '#f4511e', //Set Header color
-              },
-              headerTintColor: '#fff', //Set Header text color
-              headerTitleStyle: {
-                fontWeight: 'bold', //Set Header text style
-              },
-            }}
-        />
-      </Stack.Navigator> 
-    ) : (
-      <Stack.Navigator>
-        <Stack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          title: 'ProfileScreen', //Set Header Title
-          headerStyle: {
-            backgroundColor: '#f4511e', //Set Header color
-          },
-          headerTintColor: '#fff', //Set Header text color
-          headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
-          },
-        }}
-      />
-     </Stack.Navigator>
-    )}
-     
-    </NavigationContainer>
-  );
-};
-
-export default App;

@@ -1,9 +1,9 @@
 import axios from "axios";
 import authHeader from './auth_header';
 
-const API_URL = 'http://localhost:4000/api/incidentes';
+const API_URL = 'http://localhost:4000/api/pmedicos';
 
-class IncidenteDataService {
+class MedicoDataService {
   getAll() {
     return axios.get(API_URL,{ headers: authHeader() });
   }
@@ -30,4 +30,4 @@ class IncidenteDataService {
   
 }
 
-export default new IncidenteDataService();
+export default new MedicoDataService();

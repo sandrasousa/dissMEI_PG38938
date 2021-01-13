@@ -17,6 +17,7 @@ import TurmaCriancas from "./components/pages/turmaCriancas";
 import EditTurma from "./components/pages/turmaEditar";
 import Crianca from "./components/pages/criancas";
 //import Turma from "./components/pages/turmas";
+import PMedico from "./components/pages/medico";
 import IncidentesCrianca from "./components/pages/incidente";
 import AddIncidente from "./components/pages/incidenteAdd";
 
@@ -150,6 +151,8 @@ class App extends Component {
               <Route path="/turma/:id" component={EditTurma} />
 
               <Route path="/crianca/:id" component={Crianca}/>
+
+              <Route path="/pmedicos/crianca/:id" component={PMedico}/>
 
               <Route path="/incidentes/criancas/:id" component={IncidentesCrianca}/>
               <Route path="/incidentes" component={AddIncidente}/>
