@@ -21,6 +21,22 @@ class UserService {
     return axios.get(API_URL + '/responsavel', { headers: authHeader() });
   }
 
+  getAll() {
+    return axios.get(API_URL + `/auth/users`,{ headers: authHeader() });
+  }
+
+  get(id) {
+    return axios.get(API_URL + `/auth/users/${id}`, { headers: authHeader() });
+  }
+
+  update(id, data) {
+    return axios.put(API_URL + `/auth/users/update/${id}`, data, { headers: authHeader() });
+  }
+
+  delete(id) {
+    return axios.delete(API_URL +  `/auth/users/delete/${id}`, { headers: authHeader() });
+  }
+
 }
 
 export default new UserService();

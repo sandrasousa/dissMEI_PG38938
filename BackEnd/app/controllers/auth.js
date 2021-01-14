@@ -112,6 +112,36 @@ exports.signin = (req, res) => {
     });
 };
 
+// Encontrar todos os Uitlizadors
+exports.fintUsers = (req, res) => {
+
+  User.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+//Encontrar turma por id 
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+
+  User.findByPk(id)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Turma with id=" + id
+      });
+    });
+};
+
 // Update a Utilizador by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;

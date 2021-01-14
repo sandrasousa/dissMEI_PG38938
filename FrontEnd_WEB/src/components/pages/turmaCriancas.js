@@ -9,8 +9,6 @@ import "../../style/board_admin.css";
 export default class Turma extends Component {
   constructor(props) {
     super(props);
-    
-    this.on
 
     this.refreshList = this.refreshList.bind(this);
     this.setActiveCriancas = this.setActiveCriancas.bind(this);

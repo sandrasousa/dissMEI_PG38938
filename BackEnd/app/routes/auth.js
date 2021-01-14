@@ -1,5 +1,6 @@
 const { verifySignUp } = require("../middleware/verifySignUp");
 const controller = require("../controllers/auth");
+const { authJwt } = require("../middleware");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -15,4 +16,16 @@ module.exports = function(app) {
   );
 
   app.post("/api/auth/signin", controller.signin);
+
+   // Retrieve all Turmas
+   app.get('/api/auth/users', authJwt.verifyToken, authJwt.isAdmin, controller.fintUsers);
+
+  // Retrieve a single Turmas with id
+    app.get('/api/auth/users/:id', authJwt.verifyToken, authJwt.isEducacaoOrAdmin, controller.findOne);
+
+   // Update a Turma with id
+   app.put('/api/auth/users/update/:id', authJwt.verifyToken, authJwt.isAdmin, controller.update);
+  
+   // Delete a Turma with id
+   app.delete('/api/auth/users/delete/:id', authJwt.verifyToken, authJwt.isAdmin, controller.delete);
 };

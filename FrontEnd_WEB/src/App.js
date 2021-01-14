@@ -7,11 +7,13 @@ import AuthService from "./services/auth_service";
 
 import Login from "./components/login";
 import Register from "./components/register";
+
 //import Home from "./components/home";
 import Profile from "./components/profile";
 import BoardAdmin from "./components/board_admin";
 import BoardEducacao from "./components/board_educacao";
 import BoardResponsavel from "./components/board_responsavel";
+
 import Turmas from "./components/pages/turmas";
 import TurmaCriancas from "./components/pages/turmaCriancas";
 import EditTurma from "./components/pages/turmaEditar";
@@ -20,6 +22,9 @@ import Crianca from "./components/pages/criancas";
 import PMedico from "./components/pages/medico";
 import IncidentesCrianca from "./components/pages/incidente";
 import AddIncidente from "./components/pages/incidenteAdd";
+
+import Utilizadores from "./components/pages/users";
+import EditUtilizador from "./components/pages/userEditar";
 
 class App extends Component {
   constructor(props) {
@@ -156,6 +161,9 @@ class App extends Component {
 
               <Route path="/incidentes/criancas/:id" component={IncidentesCrianca}/>
               <Route path="/incidentes" component={AddIncidente}/>
+
+              <Route path="/users" component={Utilizadores} />
+              <Route path="/user/:id" component={EditUtilizador} />
             </Switch>
           </div>
 

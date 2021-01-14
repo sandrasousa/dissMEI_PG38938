@@ -1,25 +1,29 @@
-//CONTROLLER REGISTOS DIÁROS
+//CONTROLLER OUTROS REGISTOS
 
 const db = require("../models");
-const Diario = db.diario;
+const Outro = db.outro;
 const Crianca = db.crianca;
 const Turma = db.turma;
 const User = db.user;
 
 const { Op } = require("sequelize");
 const crianca = require("../models/crianca");
+const outro = require("../models/outro");
 
 // Adicionar nova criança
 // ????????????????????? "Unhandled rejection Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client" ????????????????????? 
 exports.create = (req, res) => {
-  Diario.create({
+  const criancaId = req.body.criancaId;
+  var condition = { criancaId: { [Op.like]:`%${criancaId}%` }}
+
+  Outro.create({
     descricao: req.body.descricao,
     data: req.body.data,
     comentario: req.body.comentario,
     anexo: req.body.anexo,
     criancaId: req.body.criancaId
   })
-  .then(incidente => {
+  .then(outro => {
     if (req.body.users) {    
       User.findAll({
           where: {
@@ -52,10 +56,10 @@ exports.create = (req, res) => {
     INNER JOIN incidentes ON incidentes.id = crianca_incidentes.incidenteId
     WHERE criancas.id = ?; */
 exports.findByCrianca = (req, res) => {
-    const criancaId = req.query.criancaId;
+    const criancaId = req.params.criancaId;
     var condition = { criancaId: { [Op.like]:`%${criancaId}%` }}
 
-    Incidente.findAll({
+    Outro.findAll({
         where: condition,
         include : [
           { 
@@ -78,7 +82,7 @@ exports.findByCrianca = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Incidente.findByPk(id)
+  Outro.findByPk(id)
     .then(data => {
       res.send(data);
     })
@@ -93,7 +97,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Incidente.update(req.body, {
+  Outro.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -118,7 +122,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Incidente.destroy({
+  Outro.destroy({
     where: { id: id }
   })
     .then(num => {

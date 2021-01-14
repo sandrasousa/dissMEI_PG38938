@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Incidente = sequelize.define("incidentes", {
+    const Diario = sequelize.define("diarios", {
       descricao: {
         type: Sequelize.STRING(100),
         allowNull: false 
@@ -18,5 +18,5 @@ module.exports = (sequelize, Sequelize) => {
       }
     });
 
-    return Incidente;
+    return Diario;
   };
