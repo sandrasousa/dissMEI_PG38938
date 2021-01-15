@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Button, Loading } from '../style';
 import axios from 'axios';
+import deviceStorage from '../services/deviceStorage ';
 
 export default class LoggedIn extends Component {
   constructor(props){
@@ -9,60 +10,41 @@ export default class LoggedIn extends Component {
     this.state = {
       loading: true,
       email: '',
-      error: ''
+      error: '',
+      content: "",
+      currentUser: deviceStorage.getCurrentUser(),
     }
   }
 
   componentDidMount(){
-    const headers = {
-      'Authorization': 'Bearer ' + this.props.jwt
-    };
-    axios({
-      method: 'GET',
-      url: 'http://localhost:4000/api/responsavel',
-      headers: headers,
-    }).then((response) => {
-      this.setState({
-        email: response.data.email,
-        loading: false
-      });
-    }).catch((error) => {
-      this.setState({
-        error: 'Error retrieving data',
-        loading: false
-      });
-    });
+    UserService.getResponsavelBoard().then(
+      response => {
+        this.setState({
+          content: response.data
+        });
+      },
+      error => {
+        this.setState({
+          content:
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString()
+        });
+      }
+    );
   }
 
   render() {
-    const { container, emailText, errorText } = styles;
-    const { loading, email, error } = this.state;
+    const { currentUser } = this.state;
 
-    if (loading){
+
       return(
         <View style={container}>
-          <Loading size={'large'} />
+          <Text>{this.state.content}</Text>
         </View>
       )
-    } else {
-        return(
-          <View style={container}>
-            <View>
-              {email ?
-                <Text style={emailText}>
-                  Your email: {email}
-                </Text>
-                :
-                <Text style={errorText}>
-                  {error}
-                </Text>}
-            </View>
-            <Button onPress={this.props.deleteJWT}>
-              Log Out
-            </Button>
-          </View>
-      );
-    }
   }
 }
 

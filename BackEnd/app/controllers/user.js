@@ -18,7 +18,3 @@ exports.allAccess = (req, res) => {
   exports.responsavelBoard = (req, res) => {
     res.status(200).send("Responsável Content.");
   };
-
-  
-  
-  

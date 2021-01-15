@@ -51,7 +51,7 @@ export default class BoardResponsavel extends Component {
         <br></br>
         <ul>
           {currentUser.criancas &&
-            currentUser.criancas.map((crianca, index) => <li key={index}>{crianca}</li>)}
+            currentUser.criancas.map((crianca, index) => <li key={index}><Link to={{pathname: '/criancas/?nome=' + crianca}}>{crianca}</Link></li>)}
         </ul>
       </div>
     );

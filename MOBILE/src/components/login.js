@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { Input, TextLink, Loading, Button } from '../style';
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage ';
+import LoggedIn from '../screens/LoggedIn';
 
 class Login extends Component {
   constructor(props){
@@ -19,18 +20,16 @@ class Login extends Component {
   }
 
   loginUser() {
-    const { username, password, password_confirmation } = this.state;
+    //const {navigate} = this.props.navigation;
 
-    this.setState({ error: '', loading: true });
+    this.setState({
+      message: "",
+      loading: true
+    });
 
-    // NOTE Post to HTTPS only in production
-    axios.post("http://localhost:4000/api/auth/signin",{
-      username: username,
-        password: password
-    })
+    deviceStorage.login(this.state.username, this.state.password)
     .then((response) => {
-      deviceStorage.saveKey("id_token", response.data.jwt);
-      this.props.newJWT(response.data.jwt);
+      <LoggedIn/>
     })
     .catch((error) => {
       console.log(error);
@@ -56,7 +55,7 @@ class Login extends Component {
             <Input
               placeholder="username"
               label="Username"
-              value={username}
+              value={this.state.username}
               onChangeText={username => this.setState({ username })}
             />
           </View>
@@ -66,7 +65,7 @@ class Login extends Component {
               secureTextEntry
               placeholder="password"
               label="Password"
-              value={password}
+              value={this.state.password}
               onChangeText={password => this.setState({ password })}
             />
           </View>
@@ -84,9 +83,6 @@ class Login extends Component {
           }
 
         </View>
-        <TextLink onPress={this.props.authSwitch}>
-          Don't have an account? Register!
-        </TextLink>
       </Fragment>
     );
   }

@@ -1,9 +1,31 @@
 import { AsyncStorage } from 'react-native';
+import axios from "axios";
+
+const API_URL = "http://192.168.1.8:4000/api/auth/";
 
 const deviceStorage = {
-  async saveKey(key, valueToSave) {
+  async login(username, password) {
     try {
-      await AsyncStorage.setItem(key, valueToSave);
+      await axios
+      .post(API_URL + "signin", {
+        username,
+        password
+      })
+      .then(response => {
+        if (response.data.accessToken) {
+          AsyncStorage.setItem("user", JSON.stringify(response.data));
+        }
+
+        return response.data;
+      });
+    } catch (error) {
+      console.log('AsyncStorage Error: ' + error.message);
+    }
+  },
+
+  async getCurrentUser() {
+    try {
+      return JSON.parse(await AsyncStorage.getItem('user'));
     } catch (error) {
       console.log('AsyncStorage Error: ' + error.message);
     }

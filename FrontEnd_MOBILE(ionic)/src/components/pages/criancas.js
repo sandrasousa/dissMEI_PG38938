@@ -13,6 +13,7 @@ export default class Turma extends Component {
     this.onChangeApelido = this.onChangeApelido.bind(this);
     this.onChangeDNascimento = this.onChangeDNascimento.bind(this);
     this.onChangeSexo = this.onChangeSexo.bind(this);
+    
     this.getCrianca = this.getCrianca.bind(this);
     this.updateCrianca = this.updateCrianca.bind(this);
     this.deleteCrianca = this.deleteCrianca.bind(this);
@@ -100,7 +101,7 @@ export default class Turma extends Component {
       .then(response => {
         console.log(response.data);
         this.setState({
-          message: "The Turma was updated successfully!"
+          message: "The Crianca was updated successfully!"
         });
       })
       .catch(e => {
